@@ -12,6 +12,7 @@ install:
     - sudo apt-get install clang-3.4
     - sudo apt-get install g++-4.8
     - sudo apt-get install libboost-all-dev
+    - sudo apt-get install doxygen
     - sudo apt-get install libgtest-dev
     - cd /usr/src/gtest
     - sudo cmake .
@@ -24,6 +25,7 @@ before_script:
     - clang++ -v
     - g++-4.8 -v
     - cat /usr/include/boost/version.hpp
+    - doxygen -v
     - ls -al /usr/local/lib/*gtest*
     - valgrind --version
 
