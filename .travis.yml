@@ -36,7 +36,7 @@ script:
     - make CXX=clang++ testx
     - cd -
     - cd projects/collatz
-    - make             collatz_tests
+    - make             collatz-tests
     - make             Collatz.log
     - make             html
     - make             test
