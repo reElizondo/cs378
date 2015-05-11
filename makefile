@@ -31,16 +31,21 @@ pull:
 	--include "Coverage3.c++"               \
 	--exclude "*"                           \
 	../../../examples/c++/ examples/
+	@rsync -r -t -u -v --delete             \
+	--include "collatz/"                    \
+	--include "Collatz.c++"                 \
+	--include "Collatz.h"                   \
+	--include "gitignore.sample"            \
+	--include "makefile"                    \
+	--include "RunCollatz.c++"              \
+	--include "RunCollatz.in"               \
+	--include "RunCollatz.sample.out"       \
+	--include "TestCollatz.c++"             \
+	--include "TestCollatz.sample.out"      \
+	--include "travis.sample.yml"           \
+	--exclude "*"                           \
+	../../../projects/c++/ projects
 
-#	@rsync -r -t -u -v --delete             \
-#	--include "collatz/"                    \
-#	--include "*.c++"                       \
-#	--include "*.h"                         \
-#	--include "*.in"                        \
-#	--include "*.out"                       \
-#	--include "makefile"                    \
-#	--exclude "*"                           \
-#	../../projects/c++/ projects
 #	@rsync -r -t -u -v --delete             \
 #	--include "voting/"                     \
 #	--include "makefile"                    \
