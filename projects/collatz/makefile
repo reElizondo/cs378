@@ -47,7 +47,9 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcov
 	rm -f RunCollatz
+	rm -f RunCollatz.out
 	rm -f TestCollatz
+	rm -f TestCollatz.out
 
 test: Collatz.log RunCollatz.out TestCollatz.out collatz-tests html
 	@for i in $(FILES);                                         \
