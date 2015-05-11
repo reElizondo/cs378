@@ -7,6 +7,8 @@
 #include <cassert>  // assert
 #include <iostream> // cout, endl
 
+#include "gtest/gtest.h"
+
 int cycle_length (int n) {
     assert(n > 0);
     int c = 1;
@@ -19,36 +21,45 @@ int cycle_length (int n) {
     assert(c > 0);
     return c;}
 
-int main () {
-    using namespace std;
-    cout << "Coverage3.c++" << endl;
+TEST(CoverageFixture, test_1) {
+    ASSERT_EQ(cycle_length(1), 1);}
 
-    assert(cycle_length(1) == 1);
-    assert(cycle_length(2) == 2);
-    assert(cycle_length(3) == 8);
+TEST(CoverageFixture, test_2) {
+    ASSERT_EQ(cycle_length(2), 2);}
 
-    cout << "Done." << endl;
-    return 0;}
+TEST(CoverageFixture, test_3) {
+    ASSERT_EQ(cycle_length(3), 8);}
+
 
 /*
-% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Coverage1.c++ -o Coverage1 -lgtest -lgtest_main -pthread
-Coverage3
-Coverage3.c++
-Done.
+% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Coverage3.c++ -o Coverage3 /usr/local/lib/gtest_main.a
 
 
 
-% gcov -b Coverage3.c++
+% Coverage3
+Running main() from gtest_main.cc
+[==========] Running 3 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 3 tests from CoverageFixture
+[ RUN      ] CoverageFixture.test_1
+[       OK ] CoverageFixture.test_1 (0 ms)
+[ RUN      ] CoverageFixture.test_2
+[       OK ] CoverageFixture.test_2 (0 ms)
+[ RUN      ] CoverageFixture.test_3
+[       OK ] CoverageFixture.test_3 (0 ms)
+[----------] 3 tests from CoverageFixture (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test case ran. (0 ms total)
+[  PASSED  ] 3 tests.
+
+
+
+% gcov -b Coverage3.c++ | grep -A 5 "File 'Coverage3.c++'"
 File 'Coverage3.c++'
-Lines executed:100.00% of 17
-Branches executed:100.00% of 18
-Taken at least once:61.11% of 18
-Calls executed:61.54% of 13
-Creating 'Coverage3.c++.gcov'
-...
-
-
-
-% cat Coverage3.c++.gcov
-...
+Lines executed:100.00% of 15
+Branches executed:59.32% of 59
+Taken at least once:30.51% of 59
+No calls
+Coverage3.c++:creating 'Coverage3.c++.gcov'
 */

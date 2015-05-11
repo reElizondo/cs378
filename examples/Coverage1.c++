@@ -7,6 +7,8 @@
 #include <cassert>  // assert
 #include <iostream> // cout, endl
 
+#include "gtest/gtest.h"
+
 int cycle_length (int n) {
     assert(n > 0);
     int c = 1;
@@ -19,34 +21,34 @@ int cycle_length (int n) {
     assert(c > 0);
     return c;}
 
-int main () {
-    using namespace std;
-    cout << "Coverage1.c++" << endl;
-
-    assert(cycle_length(1) == 1);
-
-    cout << "Done." << endl;
-    return 0;}
+TEST(CoverageFixture, test_1) {
+    ASSERT_EQ(cycle_length(1), 1);}
 
 /*
-% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Coverage1.c++ -o Coverage1 -lgtest -lgtest_main -pthread
-Coverage1
-Coverage1.c++
-Done.
+% g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Coverage1.c++ -o Coverage1 /usr/local/lib/gtest_main.a
 
 
 
-% gcov -b Coverage1.c++
+% Coverage1
+Running main() from gtest_main.cc
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from CoverageFixture
+[ RUN      ] CoverageFixture.test_1
+[       OK ] CoverageFixture.test_1 (0 ms)
+[----------] 1 test from CoverageFixture (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (0 ms total)
+[  PASSED  ] 1 test.
+
+
+
+% gcov -b Coverage1.c++ | grep -A 5 "File 'Coverage1.c++'"
 File 'Coverage1.c++'
-Lines executed:73.33% of 15
-Branches executed:85.71% of 14
-Taken at least once:42.86% of 14
-Calls executed:66.67% of 9
-Creating 'Coverage1.c++.gcov'
-...
-
-
-
-% cat Coverage1.c++.gcov
-...
+Lines executed:63.64% of 11
+Branches executed:60.00% of 25
+Taken at least once:28.00% of 25
+No calls
+Coverage1.c++:creating 'Coverage1.c++.gcov'
 */

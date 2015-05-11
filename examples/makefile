@@ -1,8 +1,6 @@
 FILES :=       \
 	Hello      \
 	Assertions \
-	UnitTests1 \
-	UnitTests2 \
 	UnitTests3 \
 	Coverage1  \
 	Coverage2  \
