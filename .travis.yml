@@ -25,7 +25,7 @@ before_script:
     - clang++ -v
     - g++-4.8 -v
     - cat /usr/include/boost/version.hpp
-    - doxygen -v
+    - doxygen --version
     - ls -al /usr/local/lib/*gtest*
     - valgrind --version
 
