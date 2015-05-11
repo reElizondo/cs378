@@ -42,6 +42,12 @@ collatz-tests:
 html: Doxyfile Collatz.h Collatz.c++ RunCollatz.c++ TestCollatz.c++
 	doxygen Doxyfile
 
+check:
+	@for i in $(FILES);                                         \
+	do                                                          \
+        [ -e $$i ] && echo "$$i found" || echo "$$i NOT FOUND"; \
+    done
+
 clean:
 	rm -f *.gcda
 	rm -f *.gcno
@@ -51,8 +57,4 @@ clean:
 	rm -f TestCollatz
 	rm -f TestCollatz.out
 
-test: Collatz.log RunCollatz.out TestCollatz.out collatz-tests html
-	@for i in $(FILES);                                         \
-	do                                                          \
-        [ -e $$i ] && echo "$$i found" || echo "$$i NOT FOUND"; \
-    done
+test: RunCollatz.out TestCollatz.out
