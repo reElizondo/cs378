@@ -33,7 +33,7 @@ TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 	g++-4.8 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
 
 TestCollatz.out: TestCollatz
-	valgrind TestCollatz        >  TestCollatz.out 2>&1
+	valgrind ./TestCollatz      >  TestCollatz.out 2>&1
 	gcov-4.8 -b TestCollatz.c++ >> TestCollatz.out
 
 collatz-tests:
