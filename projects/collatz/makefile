@@ -27,7 +27,7 @@ RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
 	g++-4.8 -pedantic -std=c++11 -Wall Collatz.c++ RunCollatz.c++ -o RunCollatz
 
 RunCollatz.out: RunCollatz
-	RunCollatz < RunCollatz.in > RunCollatz.out
+	./RunCollatz < RunCollatz.in > RunCollatz.out
 
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 	g++-4.8 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
