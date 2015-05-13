@@ -22,8 +22,15 @@ install:
     - sudo apt-get install valgrind
 
 before_script:
+    - ls -al /usr/bin/*clang*
     - clang++ -v
+    - ls -al /usr/bin/*g++*
+    - g++ -v
     - g++-4.8 -v
+    - ls -al /usr/bin/*cov*
+    - gcov -v
+    - gcov-4.6 -v
+    - gcov-4.8 -v
     - cat /usr/include/boost/version.hpp
     - doxygen --version
     - ls -al /usr/local/lib/*gtest*
@@ -31,16 +38,16 @@ before_script:
 
 script:
     - cd examples
-    - make             testy
-    - make             clean
-    - make CXX=clang++ testx
+    - make test
+    - make clean
+    - make test CXX=clang++ COVFLAGS=--coverage GCOV=gcov-4.6
     - cd -
     - cd projects/collatz
-    - make             collatz-tests
-    - make             Collatz.log
-    - make             html
-    - make             test
-    - make             clean
-    - make CXX=clang++ test
-    - make             check
+    - make collatz-tests
+    - make Collatz.log
+    - make html
+    - make test
+    - make clean
+    - make test CXX=clang++ COVFLAGS=--coverage GCOV=gcov-4.6
+    - make check
     - cd -

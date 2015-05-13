@@ -1,12 +1,44 @@
 FILES :=       \
 	Hello      \
-	Assertions \
 	UnitTests3 \
 	Coverage1  \
 	Coverage2  \
 	Coverage3
 
-cs:
+ifeq ($(shell uname), Darwin)
+    CXX      := g++
+    GCOV     := gcov
+    LDFLAGS  := /usr/local/lib/gtest_main.a
+    VALGRIND :=
+else
+    CXX      := g++-4.8
+    GCOV     := gcov-4.8
+    LDFLAGS  := -lgtest -lgtest_main -pthread
+    VALGRIND := valgrind
+endif
+
+COVFLAGS := -fprofile-arcs -ftest-coverage
+CXXFLAGS := -pedantic -std=c++11 -Wall
+
+.PRECIOUS: %.app
+
+%.app: %.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
+
+%.c++.gcov: %.app
+	$(VALGRIND) ./$<
+	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
+	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
+
+all: $(FILES:=.app)
+
+clean:
+	rm -f *.app
+	rm -f *.gcda
+	rm -f *.gcno
+	rm -f *.gcov
+
+sync:
 	make clean
 	@echo `pwd`
 	@rsync -r -t -u -v --delete            \
@@ -16,49 +48,4 @@ cs:
 	--exclude "*"                          \
 	. downing@$(CS):cs/cs378/c++/examples/
 
-ifeq ($(shell uname), Darwin)
-    CXX      := g++
-    GCOV     := gcov -b
-    LDFLAGS  := /usr/local/lib/gtest_main.a
-    VALGRIND :=
-else
-    CXX      := g++-4.8
-    GCOV     := gcov-4.8 -b
-    LDFLAGS  := -lgtest -lgtest_main -pthread
-    VALGRIND := valgrind
-endif
-
-CXXFLAGS := -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall
-
-%: %.c++
-	$(CXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
-
-all: $(FILES)
-
-clean:
-	rm -f *.gcda
-	rm -f *.gcno
-	rm -f *.gcov
-	@for i in $(FILES); \
-	do                  \
-        echo rm -f $$i; \
-             rm -f $$i; \
-    done
-
-testx: all
-	@for i in $(FILES); \
-	do                  \
-        echo ./$$i;     \
-             ./$$i;     \
-    done
-
-testy: all
-	@for i in $(FILES); \
-	do                  \
-        echo $(VALGRIND) ./$$i;                               \
-             $(VALGRIND) ./$$i;                               \
-        echo $(GCOV) ./$$i.c++ \| grep -A 5 "File './$$i.h'"; \
-             $(GCOV) ./$$i.c++  | grep -A 5 "File './$$i.h'"; \
-        echo $(GCOV) ./$$i.c++ \| grep -A 5 "File '$$i.c++'"; \
-             $(GCOV) ./$$i.c++  | grep -A 5 "File '$$i.c++'"; \
-    done
+test: $(FILES:=.c++.gcov)

@@ -15,26 +15,13 @@ FILES :=                              \
     TestCollatz.c++                   \
     TestCollatz.out
 
-all:
+CXX      := g++-4.8
+COVFLAGS := -fprofile-arcs -ftest-coverage
+CXXFLAGS := -pedantic -std=c++11 -Wall
+GCOV     := gcov-4.8
+LDFLAGS  := -lgtest -lgtest_main -pthread
 
-Collatz.log:
-	git log > Collatz.log
-
-Doxyfile:
-	doxygen -g
-
-RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
-	g++-4.8 -pedantic -std=c++11 -Wall Collatz.c++ RunCollatz.c++ -o RunCollatz
-
-RunCollatz.out: RunCollatz
-	./RunCollatz < RunCollatz.in > RunCollatz.out
-
-TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
-	g++-4.8 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
-
-TestCollatz.out: TestCollatz
-	valgrind ./TestCollatz      >  TestCollatz.out 2>&1
-	gcov-4.8 -b TestCollatz.c++ >> TestCollatz.out
+all: RunCollatz TestCollatz
 
 collatz-tests:
 	git clone https://github.com/cs378-summer-2015/collatz-tests.git
@@ -58,3 +45,22 @@ clean:
 	rm -f TestCollatz.out
 
 test: RunCollatz.out TestCollatz.out
+
+Collatz.log:
+	git log > Collatz.log
+
+Doxyfile:
+	doxygen -g
+
+RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
+	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
+
+RunCollatz.out: RunCollatz
+	./RunCollatz < RunCollatz.in > RunCollatz.out
+
+TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
+
+TestCollatz.out: TestCollatz
+	valgrind ./TestCollatz      >  TestCollatz.out 2>&1
+	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out
