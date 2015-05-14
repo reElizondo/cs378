@@ -38,7 +38,7 @@ html: Doxyfile Collatz.h Collatz.c++ RunCollatz.c++ TestCollatz.c++
 
 check:
 	@for i in $(FILES);                                         \
-	do                                                          \
+    do                                                          \
         [ -e $$i ] && echo "$$i found" || echo "$$i NOT FOUND"; \
     done
 
