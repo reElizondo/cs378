@@ -15,11 +15,18 @@ FILES :=                              \
     TestCollatz.c++                   \
     TestCollatz.out
 
-CXX      := g++-4.8
-COVFLAGS := -fprofile-arcs -ftest-coverage
+ifeq ($(CXX), clang++)
+    GCOV     := gcov-4.6
+    COVFLAGS := --coverage
+else
+    CXX      := g++-4.8
+    COVFLAGS := -fprofile-arcs -ftest-coverage
+    GCOV     := gcov-4.8
+endif
+
 CXXFLAGS := -pedantic -std=c++11 -Wall
-GCOV     := gcov-4.8
 LDFLAGS  := -lgtest -lgtest_main -pthread
+VALGRIND := valgrind
 
 all: RunCollatz TestCollatz
 
@@ -53,12 +60,14 @@ Doxyfile:
 	doxygen -g
 
 RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
+	@echo
 	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
 
 RunCollatz.out: RunCollatz
 	./RunCollatz < RunCollatz.in > RunCollatz.out
 
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
+	@echo
 	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 
 TestCollatz.out: TestCollatz

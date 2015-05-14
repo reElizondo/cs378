@@ -40,7 +40,7 @@ script:
     - cd examples
     - make test
     - make clean
-    - make test CXX=clang++ COVFLAGS=--coverage GCOV=gcov-4.6
+    - make test CXX=clang++
     - cd -
     - cd projects/collatz
     - make collatz-tests
@@ -48,6 +48,6 @@ script:
     - make html
     - make test
     - make clean
-    - make test CXX=clang++ COVFLAGS=--coverage GCOV=gcov-4.6
+    - make test CXX=clang++
     - make check
     - cd -

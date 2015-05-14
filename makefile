@@ -1,10 +1,3 @@
-cs:
-	@echo `pwd`
-	@rsync -r -t -u -v --delete   \
-	--include "makefile"          \
-	--exclude "*"                 \
-	. downing@$(CS):cs/cs378/c++/
-
 config:
 	git config -l
 
@@ -148,3 +141,10 @@ status:
 	git branch
 	git remote
 	git status
+
+sync:
+	@echo `pwd`
+	@rsync -r -t -u -v --delete   \
+	--include "makefile"          \
+	--exclude "*"                 \
+	. downing@$(CS):cs/cs378/c++/

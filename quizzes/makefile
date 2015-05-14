@@ -1,23 +1,22 @@
 FILES :=
 
-ifeq ($(shell uname), Darwin)
-    CXX      := g++
-    GCOV     := gcov
-    LDFLAGS  := /usr/local/lib/gtest_main.a
-    VALGRIND :=
+ifeq ($(CXX), clang++)
+    GCOV     := gcov-4.6
+    COVFLAGS := --coverage
 else
     CXX      := g++-4.8
+    COVFLAGS := -fprofile-arcs -ftest-coverage
     GCOV     := gcov-4.8
-    LDFLAGS  := -lgtest -lgtest_main -pthread
-    VALGRIND := valgrind
 endif
 
-COVFLAGS := -fprofile-arcs -ftest-coverage
 CXXFLAGS := -pedantic -std=c++11 -Wall
+LDFLAGS  := -lgtest -lgtest_main -pthread
+VALGRIND := valgrind
 
 .PRECIOUS: %.app
 
 %.app: %.c++
+	@echo
 	$(CXX) $(COVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 
 %.c++.gcov: %.app
@@ -36,11 +35,11 @@ clean:
 sync:
 	make clean
 	@echo `pwd`
-	@rsync -r -t -u -v --delete            \
-	--include "*.c++"                      \
-	--include "*.h"                        \
-	--include "makefile"                   \
-	--exclude "*"                          \
-	. downing@$(CS):cs/cs378/c++/examples/
+	@rsync -r -t -u -v --delete           \
+	--include "*.c++"                     \
+	--include "*.h"                       \
+	--include "makefile"                  \
+	--exclude "*"                         \
+	. downing@$(CS):cs/cs378/c++/quizzes/
 
 test: $(FILES:=.c++.gcov)
