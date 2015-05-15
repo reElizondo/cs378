@@ -100,13 +100,13 @@ gtest.h
 
 
 
-% g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
+% g++-4.8 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
 
 
 
 % valgrind TestCollatz        >  TestCollatz.out 2>&1
-% gcov-4.7 -b Collatz.c++     >> TestCollatz.out
-% gcov-4.7 -b TestCollatz.c++ >> TestCollatz.out
+% gcov-4.8 -b Collatz.c++     >> TestCollatz.out
+% gcov-4.8 -b TestCollatz.c++ >> TestCollatz.out
 
 
 

@@ -71,5 +71,6 @@ TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 
 TestCollatz.out: TestCollatz
-	valgrind ./TestCollatz      >  TestCollatz.out 2>&1
+	valgrind ./TestCollatz     >  TestCollatz.out 2>&1
+	$(GCOV) -b Collatz.c++     >> TestCollatz.out
 	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out
