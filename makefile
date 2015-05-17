@@ -9,9 +9,6 @@ init:
 	git remote add origin git@github.com:gpdowning/cs378.git
 	git push -u origin master
 
-log:
-	git log
-
 pull:
 	@rsync -r -t -u -v --delete             \
 	--include "Hello.c++"                   \
@@ -23,7 +20,7 @@ pull:
 	--include "Coverage2.c++"               \
 	--include "Coverage3.c++"               \
 	--exclude "*"                           \
-	../../../examples/c++/ examples/
+	../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
 	--include "collatz/"                    \
 	--include "Collatz.c++"                 \
@@ -124,6 +121,7 @@ pull:
 push:
 	git add .travis.yml
 	git add *.c++
+	git add *.h
 	git add examples
 	git add exercises
 	git add makefile
@@ -139,7 +137,7 @@ status:
 	git add projects
 	git add quizzes
 	git branch
-	git remote
+	git remote -v
 	git status
 
 sync:

@@ -60,7 +60,6 @@ int main () {
 // EXTRACT_ALL            = YES
 // EXTRACT_PRIVATE        = YES
 // EXTRACT_STATIC         = YES
-// GENERATE_LATEX         = NO
 
 
 
