@@ -1,7 +1,10 @@
 clean:
 	cd examples;         make clean
+	@echo
 	cd exercises;        make clean
+	@echo
 	cd projects/collatz; make clean
+	@echo
 	cd quizzes;          make clean
 
 config:
@@ -27,6 +30,7 @@ pull:
     --include "Coverage3.c++"               \
     --exclude "*"                           \
     ../../../examples/c++/ examples
+	@echo
 	@rsync -r -t -u -v --delete             \
     --include "collatz/"                    \
     --include "Collatz.c++"                 \
@@ -148,7 +152,13 @@ status:
 
 sync:
 	@echo `pwd`
-	@rsync -r -t -u -v --delete   \
-    --include "makefile"          \
-    --exclude "*"                 \
+	@rsync -r -t -u -v --delete \
+    --include "makefile"        \
+    --exclude "*"               \
     . downing@$(CS):cs/cs378/c++/
+	@echo
+	cd examples;         make sync
+	@echo
+	cd exercises;        make sync
+	@echo
+	cd quizzes;          make sync

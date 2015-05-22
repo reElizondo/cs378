@@ -16,8 +16,8 @@ FILES :=                              \
     TestCollatz.out
 
 ifeq ($(CXX), clang++)
-    GCOV     := gcov-4.6
     COVFLAGS := --coverage
+    GCOV     := gcov-4.6
 else
     CXX      := g++-4.8
     COVFLAGS := -fprofile-arcs -ftest-coverage
@@ -39,8 +39,8 @@ html: Doxyfile Collatz.h Collatz.c++ RunCollatz.c++ TestCollatz.c++
 check:
 	@for i in $(FILES);                                         \
 	do                                                          \
-		[ -e $$i ] && echo "$$i found" || echo "$$i NOT FOUND"; \
-	done
+        [ -e $$i ] && echo "$$i found" || echo "$$i NOT FOUND"; \
+    done
 
 clean:
 	rm -f *.gcda
@@ -60,17 +60,15 @@ Doxyfile:
 	doxygen -g
 
 RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
-	@echo
 	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
 
 RunCollatz.out: RunCollatz
 	./RunCollatz < RunCollatz.in > RunCollatz.out
 
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
-	@echo
 	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 
 TestCollatz.out: TestCollatz
-	valgrind ./TestCollatz     >  TestCollatz.out 2>&1
+	$(VALGRIND) ./TestCollatz  >  TestCollatz.out 2>&1
 	$(GCOV) -b Collatz.c++     >> TestCollatz.out
 	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out

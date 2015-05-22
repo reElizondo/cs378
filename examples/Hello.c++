@@ -2,6 +2,9 @@
 // Hello.c++
 // ---------
 
+// http://www.cplusplus.com
+// http://www.cplusplus.com/reference/stl/
+
 #include <iostream> // cout, endl
 
 int main () {
