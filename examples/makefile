@@ -40,11 +40,11 @@ clean:
 sync:
 	make clean
 	@echo `pwd`
-	@rsync -r -t -u -v --delete            \
-	--include "*.c++"                      \
-	--include "*.h"                        \
-	--include "makefile"                   \
-	--exclude "*"                          \
+	@rsync -r -t -u -v --delete             \
+	--include "*.c++"                       \
+	--include "*.h"                         \
+	--include "makefile"                    \
+	--exclude "*"                           \
 	. downing@$(CS):cs/cs378/c++/examples/
 
 test: $(FILES:=.c++.gcov)
