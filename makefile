@@ -22,6 +22,8 @@ pull:
 	@rsync -r -t -u -v --delete             \
     --include "Hello.c++"                   \
     --include "Assertions.c++"              \
+    --include "Collatz1.h"                  \
+    --include "Collatz2.h"                  \
     --include "UnitTests1.c++"              \
     --include "UnitTests2.c++"              \
     --include "UnitTests3.c++"              \
@@ -130,6 +132,7 @@ pull:
 
 push:
 	make clean
+	@echo
 	git add .travis.yml
 	git add examples
 	git add exercises

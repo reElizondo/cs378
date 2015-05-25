@@ -30,12 +30,6 @@ VALGRIND := valgrind
 
 all: RunCollatz TestCollatz
 
-collatz-tests:
-	git clone https://github.com/cs378-summer-2015/collatz-tests.git
-
-html: Doxyfile Collatz.h Collatz.c++ RunCollatz.c++ TestCollatz.c++
-	doxygen Doxyfile
-
 check:
 	@for i in $(FILES);                                         \
 	do                                                          \
@@ -43,15 +37,26 @@ check:
     done
 
 clean:
-	rm -f *.gcda
-	rm -f *.gcno
-	rm -f *.gcov
-	rm -f RunCollatz
-	rm -f RunCollatz.out
-	rm -f TestCollatz
-	rm -f TestCollatz.out
+	rm -f  *.gcda
+	rm -f  *.gcno
+	rm -f  *.gcov
+	rm -f  Collatz.log
+	rm -f  RunCollatz
+	rm -f  RunCollatz.out
+	rm -f  TestCollatz
+	rm -f  TestCollatz.out
+	rm -rf html
+
+config:
+	git config -l
 
 test: RunCollatz.out TestCollatz.out
+
+collatz-tests:
+	git clone https://github.com/cs378-summer-2015/collatz-tests.git
+
+html: Doxyfile Collatz.h Collatz.c++ RunCollatz.c++ TestCollatz.c++
+	doxygen Doxyfile
 
 Collatz.log:
 	git log > Collatz.log
