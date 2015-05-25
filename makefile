@@ -1,11 +1,11 @@
 clean:
-	cd examples;         make clean
+	cd examples; make clean
 	@echo
-	cd exercises;        make clean
+	cd exercises; make clean
 	@echo
 	cd projects/collatz; make clean
 	@echo
-	cd quizzes;          make clean
+	cd quizzes; make clean
 
 config:
 	git config -l
@@ -53,6 +53,7 @@ pull:
 #   --include "makefile"                    \
 #   --exclude "*"                           \
 #   ../../projects/c++/ projects
+#
 #   @rsync -r -t -u -v --delete             \
 #   --include "integer/"                    \
 #   --include "*.c++"                       \
@@ -61,6 +62,7 @@ pull:
 #   --include "makefile"                    \
 #   --exclude "*"                           \
 #   ../../projects/c++/ projects
+#
 #   @rsync -r -t -u -v --delete             \
 #   --include "deque/"                      \
 #   --include "*.c++"                       \
@@ -69,6 +71,7 @@ pull:
 #   --include "makefile"                    \
 #   --exclude "*"                           \
 #   ../../projects/c++/ projects
+#
 #   @rsync -r -t -u -v --delete             \
 #   --include "graph/"                      \
 #   --include "*.c++"                       \
@@ -77,6 +80,7 @@ pull:
 #   --include "makefile"                    \
 #   --exclude "*"                           \
 #   ../../projects/c++/ projects
+#
 #   --include "Exceptions.c++"              \
 #   --include "Exceptions2.c++"             \
 #   --include "Exceptions3.c++"             \
@@ -145,6 +149,7 @@ push:
 
 status:
 	make clean
+	@echo
 	git add examples
 	git add exercises
 	git add projects
@@ -160,8 +165,8 @@ sync:
     --exclude "*"               \
     . downing@$(CS):cs/cs378/c++/
 	@echo
-	cd examples;         make sync
+	cd examples; make sync
 	@echo
-	cd exercises;        make sync
+	cd exercises; make sync
 	@echo
-	cd quizzes;          make sync
+	cd quizzes; make sync
