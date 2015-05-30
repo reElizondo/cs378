@@ -135,6 +135,10 @@ test:
         make --no-print-directory test CXX=clang++
 
 versions:
+	uname -a
+	@echo
+	set
+	@echo
 	which $(CXX)
 	@echo
 	$(CXX) -v
