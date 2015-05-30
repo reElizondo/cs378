@@ -2,22 +2,22 @@ ifeq ($(shell uname), Darwin)
     CXX       := g++
     GTEST     := head -1 /usr/local/src/gtest-1.7.0/CHANGES
     GCOV      := gcov
+    GCOVFLAGS := -version
     BOOST     := /usr/local/src/boost_1_57_0/boost
-    VALGRIND1 :=
-    VALGRIND2 :=
+    VALGRIND  :=
 else ifeq ($(CXX), clang++)
     GTEST     := dpkg -l libgtest-dev
     GCOV      := gcov-4.6
+    GCOVFLAGS := -v
     BOOST     := /usr/include/boost
-    VALGRIND1 := which valgrind
-    VALGRIND2 := valgrind --version
+    VALGRIND  := valgrind
 else
     CXX       := g++-4.8
     GTEST     := dpkg -l libgtest-dev
     GCOV      := gcov-4.8
+    GCOVFLAGS := -v
     BOOST     := /usr/include/boost
-    VALGRIND1 := which valgrind
-    VALGRIND2 := valgrind --version
+    VALGRIND  := valgrind
 endif
 
 clean:
@@ -147,11 +147,13 @@ versions:
 	@echo
 	which $(GCOV)
 	@echo
-	$(GCOV) -version
+	$(GCOV) $(GCOVFLAGS)
+ifdef VALGRIND
 	@echo
-	$(VALGRIND1)
+	which $(VALGRIND)
 	@echo
-	$(VALGRIND2)
+	$(VALGRIND) --version
+endif
 	@echo
 	grep "#define BOOST_VERSION " $(BOOST)/version.hpp
 	@echo
