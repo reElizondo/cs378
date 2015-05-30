@@ -34,6 +34,15 @@ Running main() from gtest_main.cc
 
 
 
+% gcov -version
+gcov (Ubuntu 4.8.2-19ubuntu1) 4.8.2
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.
+There is NO warranty; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.
+
+
+
 % gcov -b Coverage1.c++ | grep -A 5 "File 'Coverage1.c++'"
 File 'Coverage1.c++'
 Lines executed:63.64% of 11

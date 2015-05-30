@@ -46,6 +46,6 @@ sync:
     --include "*.h"             \
     --include "makefile"        \
     --exclude "*"               \
-    . downing@$(CS):cs/cs378/c++/quizzes/
+    . downing@$(CS):cs/cs378/github/c++/quizzes/
 
 test: $(FILES:=.c++.gcov)

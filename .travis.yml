@@ -7,46 +7,20 @@ before_install:
     - sudo apt-get update
 
 install:
-    - uname -a
     - sudo apt-get install clang-3.4
     - sudo apt-get install g++-4.8
-    - sudo apt-get install libboost-all-dev
-    - sudo apt-get install doxygen
     - sudo apt-get install libgtest-dev
     - cd /usr/src/gtest
     - sudo cmake .
     - sudo make
     - sudo mv libg* /usr/local/lib/
     - cd -
+    - sudo apt-get install libboost-all-dev
     - sudo apt-get install valgrind
+    - sudo apt-get install doxygen
 
 before_script:
-    - ls -al /usr/bin/*clang*
-    - clang++ -v
-    - ls -al /usr/bin/*g++*
-    - g++ -v
-    - g++-4.8 -v
-    - ls -al /usr/bin/*cov*
-    - gcov -v
-    - gcov-4.6 -v
-    - gcov-4.8 -v
-    - cat /usr/include/boost/version.hpp
-    - doxygen --version
-    - ls -al /usr/local/lib/*gtest*
-    - valgrind --version
+    - make versions
 
 script:
-    - cd examples
     - make test
-    - make clean
-    - make test CXX=clang++
-    - cd -
-    - cd projects/collatz
-    - make collatz-tests
-    - make Collatz.log
-    - make html
-    - make test
-    - make clean
-    - make test CXX=clang++
-    - make check
-    - cd -

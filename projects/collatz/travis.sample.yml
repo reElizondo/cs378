@@ -25,24 +25,20 @@ install:
     - sudo apt-get install valgrind
 
 before_script:
-    - ls -al /usr/bin/*clang*
-    - clang++ -v
-    - ls -al /usr/bin/*g++*
-    - g++ -v
-    - g++-4.8 -v
-    - ls -al /usr/bin/*cov*
-    - gcov -v
-    - gcov-4.6 -v
-    - gcov-4.8 -v
-    - cat /usr/include/boost/version.hpp
-    - doxygen --version
-    - ls -al /usr/local/lib/*gtest*
-    - valgrind --version
+    - clang++ -v 2>&1 | grep version
+    - g++     -v 2>&1 | grep version
+    - g++-4.8 -v 2>&1 | grep version
+    - head -1 /usr/src/gtest/CHANGES
+    - gcov     -version | grep version
+    - gcov-4.8 -version | grep version
+    - -valgrind --version
+    - grep "#define BOOST_VERSION " /usr/include/boost/version.hpp
+    - doxygen -v
 
 script:
     - make collatz-tests
-    - make Collatz.log
     - make html
+    - make Collatz.log
     - make test
     - make clean
     - make test CXX=clang++

@@ -1,11 +1,33 @@
+ifeq ($(shell uname), Darwin)
+    CXX       := g++
+    GTEST     := head -1 /usr/local/src/gtest-1.7.0/CHANGES
+    GCOV      := gcov
+    BOOST     := /usr/local/src/boost_1_57_0/boost
+    VALGRIND1 :=
+    VALGRIND2 :=
+else ifeq ($(CXX), clang++)
+    GTEST     := dpkg -l libgtest-dev
+    GCOV      := gcov-4.6
+    BOOST     := /usr/include/boost
+    VALGRIND1 := which valgrind
+    VALGRIND2 := valgrind --version
+else
+    CXX       := g++-4.8
+    GTEST     := dpkg -l libgtest-dev
+    GCOV      := gcov-4.8
+    BOOST     := /usr/include/boost
+    VALGRIND1 := which valgrind
+    VALGRIND2 := valgrind --version
+endif
+
 clean:
-	cd examples; make clean
+	cd examples; make --no-print-directory clean
 	@echo
-	cd exercises; make clean
+	cd exercises; make --no-print-directory clean
 	@echo
-	cd projects/collatz; make clean
+	cd projects/collatz; make --no-print-directory clean
 	@echo
-	cd quizzes; make clean
+	cd quizzes; make --no-print-directory clean
 
 config:
 	git config -l
@@ -39,6 +61,7 @@ pull:
     --include "Collatz.h"                   \
     --include "gitignore.sample"            \
     --include "makefile"                    \
+    --include "makefile.sample"             \
     --include "RunCollatz.c++"              \
     --include "RunCollatz.in"               \
     --include "RunCollatz.sample.out"       \
@@ -47,92 +70,6 @@ pull:
     --include "travis.sample.yml"           \
     --exclude "*"                           \
     ../../../projects/c++/ projects
-
-#   @rsync -r -t -u -v --delete             \
-#   --include "voting/"                     \
-#   --include "makefile"                    \
-#   --exclude "*"                           \
-#   ../../projects/c++/ projects
-#
-#   @rsync -r -t -u -v --delete             \
-#   --include "integer/"                    \
-#   --include "*.c++"                       \
-#   --include "*.h"                         \
-#   --include "*.out"                       \
-#   --include "makefile"                    \
-#   --exclude "*"                           \
-#   ../../projects/c++/ projects
-#
-#   @rsync -r -t -u -v --delete             \
-#   --include "deque/"                      \
-#   --include "*.c++"                       \
-#   --include "*.h"                         \
-#   --include "*.out"                       \
-#   --include "makefile"                    \
-#   --exclude "*"                           \
-#   ../../projects/c++/ projects
-#
-#   @rsync -r -t -u -v --delete             \
-#   --include "graph/"                      \
-#   --include "*.c++"                       \
-#   --include "*.h"                         \
-#   --include "*.out"                       \
-#   --include "makefile"                    \
-#   --exclude "*"                           \
-#   ../../projects/c++/ projects
-#
-#   --include "Exceptions.c++"              \
-#   --include "Exceptions2.c++"             \
-#   --include "Exceptions3.c++"             \
-#   --include "Types.c++"                   \
-#   --include "Operators.c++"               \
-#   --include "StackVsHeap.c++"             \
-#   --include "Valgrind.c++"                \
-#   --include "Selection.c++"               \
-#   --include "Iteration.c++"               \
-#   --include "Factorial.c++"               \
-#   --include "Variables.c++"               \
-#   --include "Arguments.c++"               \
-#   --include "Returns.c++"                 \
-#   --include "CommandLine.c++"             \
-#   --include "Consts.c++"                  \
-#   --include "FunctionDefaults.c++"        \
-#   --include "FunctionOverloading.c++"     \
-#   --include "FunctionGenerics.c++"        \
-#   --include "FunctionSpecializations.c++" \
-#   --include "Pow.c++"                     \
-#   --include "Distance.c++"                \
-#   --include "Vector.c++"                  \
-#   --include "Vectors.c++"                 \
-#   --include "Memory.h"                    \
-#   --include "Vector.h"                    \
-#   --include "Sequences.c++"               \
-#   --include "Stacks.c++"                  \
-#   --include "Queues.c++"                  \
-#   --include "Functions.c++"               \
-#   --include "PriorityQueues.c++"          \
-#   --include "PriorityQueue.h"             \
-#   --include "Sets.c++"                    \
-#   --include "Maps.c++"                    \
-#   --include "BackInserter.c++"            \
-#   --include "OStreamIterator.c++"         \
-#   --include "IStreamIterator.c++"         \
-#   --include "ReverseIterator.c++"         \
-#   --include "ArrayObjects.c++"            \
-#   --include "ArrayObject1.h"              \
-#   --include "ArrayObject2.h"              \
-#   --include "ArrayObject3.h"              \
-#   --include "Functions2.c++"              \
-#   --include "Binder2nd.c++"               \
-#   --include "StdDev.c++"                  \
-#   --include "PtrFun.c++"                  \
-#   --include "MemFunRef.c++"               \
-#   --include "Endl.c++"                    \
-#   --include "Setw.c++"                    \
-#   --include "PtrFun.c++"                  \
-#   --include "MemFunRef.c++"               \
-#   --include "Endl.c++"                    \
-#   --include "Setw.c++"                    \
 
 push:
 	make clean
@@ -163,10 +100,57 @@ sync:
 	@rsync -r -t -u -v --delete \
     --include "makefile"        \
     --exclude "*"               \
-    . downing@$(CS):cs/cs378/c++/
+    . downing@$(CS):cs/cs378/github/c++/
 	@echo
 	cd examples; make sync
 	@echo
 	cd exercises; make sync
 	@echo
+	cd projects/collatz; make sync
+	@echo
 	cd quizzes; make sync
+
+test:
+	cd examples;                                    \
+        make --no-print-directory test;             \
+        make --no-print-directory clean;            \
+        make --no-print-directory test CXX=clang++
+	@echo
+	cd exercises;                                   \
+        make --no-print-directory test;             \
+        make --no-print-directory clean;            \
+        make --no-print-directory test CXX=clang++
+	@echo
+	cd projects/collatz;                            \
+        make --no-print-directory collatz_tests;    \
+        make --no-print-directory html;             \
+        make --no-print-directory test;             \
+        make --no-print-directory clean;            \
+        make --no-print-directory test CXX=clang++; \
+        make --no-print-directory check
+	@echo
+	cd quizzes;                                     \
+        make --no-print-directory test;             \
+        make --no-print-directory clean;            \
+        make --no-print-directory test CXX=clang++
+
+versions:
+	which $(CXX)
+	@echo
+	$(CXX) -v
+	@echo
+	$(GTEST)
+	@echo
+	which $(GCOV)
+	@echo
+	$(GCOV) -version
+	@echo
+	$(VALGRIND1)
+	@echo
+	$(VALGRIND2)
+	@echo
+	grep "#define BOOST_VERSION " $(BOOST)/version.hpp
+	@echo
+	which doxygen
+	@echo
+	doxygen -v
