@@ -157,4 +157,4 @@ versions:
 	@echo
 	which doxygen
 	@echo
-	doxygen -v
+	doxygen --version
