@@ -55,9 +55,6 @@ clean:
 	rm -f  TestCollatz.out
 	rm -rf html
 
-config:
-	git config -l
-
 sync:
 	make clean
 	@echo `pwd`

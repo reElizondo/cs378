@@ -140,7 +140,7 @@ test:
 versions:
 	uname -a
 	@echo
-	set
+	printenv
 	@echo
 	which $(CXX)
 	@echo
