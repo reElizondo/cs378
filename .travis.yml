@@ -23,4 +23,5 @@ before_script:
     - make versions
 
 script:
+    - date
     - make test
