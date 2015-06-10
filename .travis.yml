@@ -14,6 +14,7 @@ install:
     - sudo cmake .
     - sudo make
     - sudo mv libg* /usr/local/lib/
+    - ls -al /usr/local/lib/libg*
     - cd -
     - sudo apt-get install libboost-all-dev
     - sudo apt-get install valgrind
@@ -21,7 +22,12 @@ install:
 
 before_script:
     - make versions
+    - make versions CXX=clang++
 
 script:
     - date
+    - ls -al
+    - make config
     - make test
+    - make clean
+    - make test CXX=clang++

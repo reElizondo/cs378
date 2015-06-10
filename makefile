@@ -67,17 +67,15 @@ sync:
 	cd quizzes; make sync
 
 test:
-	cd examples;                                    \
-        make --no-print-directory test;             \
-        make --no-print-directory clean;            \
-        make --no-print-directory test CXX=clang++
+	cd examples; make --no-print-directory test
 	@echo
-	cd exercises;                                   \
-        make --no-print-directory test;             \
-        make --no-print-directory clean;            \
-        make --no-print-directory test CXX=clang++
+	cd exercises; make --no-print-directory test
 	@echo
-	cd quizzes;                                     \
-        make --no-print-directory test;             \
-        make --no-print-directory clean;            \
-        make --no-print-directory test CXX=clang++
+	cd quizzes; make --no-print-directory test
+
+versions:
+	cd examples; make --no-print-directory versions
+	@echo
+	cd exercises; make --no-print-directory versions
+	@echo
+	cd quizzes; make --no-print-directory versions
