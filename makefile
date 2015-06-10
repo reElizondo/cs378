@@ -30,6 +30,13 @@ pull:
     --include "Coverage3.c++"               \
     --exclude "*"                           \
     ../../../examples/c++/ examples
+	@rsync -r -t -u -v --delete             \
+    --include "IsPrime1.h"                  \
+    --include "IsPrime1.c++"                \
+    --include "IsPrime2.h"                  \
+    --include "IsPrime2.c++"                \
+    --exclude "*"                           \
+    ../../../exercises/c++/ exercises
 
 push:
 	make clean
