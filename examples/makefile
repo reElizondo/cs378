@@ -1,9 +1,14 @@
-FILES :=       \
-    Hello      \
-    UnitTests3 \
-    Coverage1  \
-    Coverage2  \
-    Coverage3
+FILES :=        \
+    Hello       \
+    UnitTests3  \
+    Coverage1   \
+    Coverage2   \
+    Coverage3   \
+    Exceptions  \
+    Exceptions2 \
+    Exceptions3 \
+    Types       \
+    Operators
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++

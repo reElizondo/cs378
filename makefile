@@ -28,6 +28,9 @@ pull:
     --include "Coverage1.c++"               \
     --include "Coverage2.c++"               \
     --include "Coverage3.c++"               \
+    --include "Exceptions.c++"              \
+    --include "Types.c++"                   \
+    --include "Operators.c++"               \
     --exclude "*"                           \
     ../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
@@ -35,6 +38,8 @@ pull:
     --include "IsPrime1.c++"                \
     --include "IsPrime2.h"                  \
     --include "IsPrime2.c++"                \
+    --include "Factorial.h"                 \
+    --include "Factorial.c++"               \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 

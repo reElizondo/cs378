@@ -31,14 +31,14 @@ int main () {
     return 0;}
 
 /*
-% g++ -pedantic -std=c++11 -Wall Assertions.c++ -o Assertions
+% g++-4.8 -pedantic -std=c++11 -Wall Assertions.c++ -o Assertions
 % Assertions
 Assertions.c++
 Assertions: Assertions.c++:17: int cycle_length(int): Assertion `c > 0' failed.
 
 
 
-% g++ -pedantic -std=c++11 -DNDEBUG -Wall Assertions.c++ -o Assertions
+% g++-4.8 -pedantic -std=c++11 -DNDEBUG -Wall Assertions.c++ -o Assertions
 % Assertions
 Assertions.c++
 Done.
