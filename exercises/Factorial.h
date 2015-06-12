@@ -7,6 +7,8 @@
 #include <cassert>  // assert
 #include <iostream> // cout, endl
 
+// recursive procedure
+// linear recursive process
 int factorial_recursion (int n) {
     assert(n >= 0);
     if (n < 2)
@@ -20,10 +22,14 @@ int factorial_tail_recursion_aux (int n, int m) {
         return m;
     return factorial_tail_recursion_aux(n - 1, n * m);}
 
+// recursive procedure
+// linear iterative process
 int factorial_tail_recursion (int n) {
     assert(n >= 0);
     return factorial_tail_recursion_aux(n, 1);}
 
+// iterative procedure
+// linear iterative process
 int factorial_iteration (int n) {
     assert(n >= 0);
     int x = 1;

@@ -21,7 +21,8 @@ void test (F f, const std::string& s) {
     assert(f(5) == 120);
 
     const clock_t b = clock();
-    std::cout << f(12) << std::endl;
+    for (int i = 0; i != 1000; ++i)
+        f(12);
     const clock_t e = clock();
     std::cout << std::fixed << std::setprecision(3) << std::setw(5);
     std::cout << ((e - b) * 1000.0 / CLOCKS_PER_SEC) << " milliseconds" << std::endl;
@@ -42,16 +43,13 @@ int main () {
 Factorial.c++
 
 factorial_recursion
-479001600
-0.005 milliseconds
+0.114 milliseconds
 
 factorial_tail_recursion
-479001600
-0.004 milliseconds
+0.154 milliseconds
 
 factorial_iteration
-479001600
-0.003 milliseconds
+0.059 milliseconds
 
 Done.
 */

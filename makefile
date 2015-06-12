@@ -40,6 +40,8 @@ pull:
     --include "IsPrime1.c++"                \
     --include "IsPrime2.h"                  \
     --include "IsPrime2.c++"                \
+    --include "StrCmp.h"                    \
+    --include "StrCmp.c++"                  \
     --include "Factorial.h"                 \
     --include "Factorial.c++"               \
     --exclude "*"                           \
