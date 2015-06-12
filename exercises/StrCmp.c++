@@ -46,3 +46,12 @@ TEST_P (StrCmpFixture, test_6) {
 
 TEST_P (StrCmpFixture, test_7) {
 	ASSERT_EQ(GetParam()("abc", "ab"), 'c' - 0);}
+
+TEST_P (StrCmpFixture, test_8) {
+	ASSERT_EQ(GetParam()("", ""), 0);}
+
+TEST_P (StrCmpFixture, test_9) {
+	ASSERT_EQ(GetParam()("a", ""), 'a' - 0);}
+
+TEST_P (StrCmpFixture, test_10) {
+	ASSERT_EQ(GetParam()("", "a"), 0 - 'a');}

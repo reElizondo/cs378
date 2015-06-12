@@ -6,9 +6,7 @@
 #define StrCmp_h
 
 int my_strcmp (const char* a, const char* b) {
-    while (*a != 0) {
-        if ((*b == 0) || (*a != *b))
-            break;
+    while ((*a != 0) && (*a == *b)) {
         ++a;
         ++b;}
     return *a - *b;}
