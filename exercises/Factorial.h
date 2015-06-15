@@ -4,8 +4,10 @@
 
 // http://www.cplusplus.com/articles/D2N36Up4/
 
-#include <cassert>  // assert
-#include <iostream> // cout, endl
+#ifndef Factorial_h
+#define Factorial_h
+
+#include <cassert> // assert
 
 // recursive procedure
 // linear recursive process
@@ -37,3 +39,5 @@ int factorial_iteration (int n) {
         x *= n;
         --n;}
     return x;}
+
+#endif // Factorial_h

@@ -14,94 +14,94 @@
 using testing::TestWithParam;
 using testing::Values;
 
-typedef int (*F) (const char*, const char*);
+typedef int (*Str_Cmp_Signature) (const char*, const char*);
 
-struct StrCmpFixture : TestWithParam<F> {};
+struct Str_Cmp_Fixture : TestWithParam<Str_Cmp_Signature> {};
 
 INSTANTIATE_TEST_CASE_P (
-    StrCmpInstantiation,
-    StrCmpFixture,
+    Str_Cmp_Instantiation,
+    Str_Cmp_Fixture,
     Values(
         my_strcmp,
            strcmp));
 
-TEST_P (StrCmpFixture, test_1) {
+TEST_P (Str_Cmp_Fixture, test_1) {
 	ASSERT_EQ(GetParam()("abc", "abc"), 0);}
 
-TEST_P (StrCmpFixture, test_2) {
+TEST_P (Str_Cmp_Fixture, test_2) {
 	ASSERT_EQ(GetParam()("abb", "abc"), 'b' - 'c');}
 
-TEST_P (StrCmpFixture, test_3) {
+TEST_P (Str_Cmp_Fixture, test_3) {
 	ASSERT_EQ(GetParam()("aba", "abc"), 'a' - 'c');}
 
-TEST_P (StrCmpFixture, test_4) {
+TEST_P (Str_Cmp_Fixture, test_4) {
 	ASSERT_EQ(GetParam()("abd", "abc"), 'd' - 'c');}
 
-TEST_P (StrCmpFixture, test_5) {
+TEST_P (Str_Cmp_Fixture, test_5) {
 	ASSERT_EQ(GetParam()("abe", "abc"), 'e' - 'c');}
 
-TEST_P (StrCmpFixture, test_6) {
+TEST_P (Str_Cmp_Fixture, test_6) {
 	ASSERT_EQ(GetParam()("ab", "abc"), 0 - 'c');}
 
-TEST_P (StrCmpFixture, test_7) {
+TEST_P (Str_Cmp_Fixture, test_7) {
 	ASSERT_EQ(GetParam()("abc", "ab"), 'c' - 0);}
 
-TEST_P (StrCmpFixture, test_8) {
+TEST_P (Str_Cmp_Fixture, test_8) {
 	ASSERT_EQ(GetParam()("", ""), 0);}
 
-TEST_P (StrCmpFixture, test_9) {
+TEST_P (Str_Cmp_Fixture, test_9) {
 	ASSERT_EQ(GetParam()("a", ""), 'a' - 0);}
 
-TEST_P (StrCmpFixture, test_10) {
+TEST_P (Str_Cmp_Fixture, test_10) {
 	ASSERT_EQ(GetParam()("", "a"), 0 - 'a');}
 
 /*
-% StrCmp
+% Str_Cmp_
 Running main() from gtest_main.cc
 [==========] Running 20 tests from 1 test case.
 [----------] Global test environment set-up.
-[----------] 20 tests from StrCmpInstantiation/StrCmpFixture
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_1/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_1/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_1/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_1/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_2/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_2/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_2/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_2/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_3/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_3/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_3/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_3/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_4/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_4/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_4/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_4/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_5/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_5/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_5/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_5/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_6/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_6/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_6/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_6/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_7/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_7/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_7/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_7/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_8/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_8/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_8/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_8/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_9/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_9/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_9/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_9/1 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_10/0
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_10/0 (0 ms)
-[ RUN      ] StrCmpInstantiation/StrCmpFixture.test_10/1
-[       OK ] StrCmpInstantiation/StrCmpFixture.test_10/1 (0 ms)
-[----------] 20 tests from StrCmpInstantiation/StrCmpFixture (0 ms total)
+[----------] 20 tests from Str_Cmp_Instantiation/Str_Cmp_Fixture
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_1/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_1/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_1/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_1/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_2/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_2/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_2/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_2/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_3/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_3/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_3/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_3/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_4/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_4/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_4/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_4/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_5/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_5/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_5/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_5/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_6/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_6/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_6/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_6/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_7/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_7/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_7/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_7/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_8/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_8/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_8/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_8/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_9/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_9/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_9/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_9/1 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_10/0
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_10/0 (0 ms)
+[ RUN      ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_10/1
+[       OK ] Str_Cmp_Instantiation/Str_Cmp_Fixture.test_10/1 (0 ms)
+[----------] 20 tests from Str_Cmp_Instantiation/Str_Cmp_Fixture (0 ms total)
 
 [----------] Global test environment tear-down
 [==========] 20 tests from 1 test case ran. (0 ms total)

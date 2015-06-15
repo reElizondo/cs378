@@ -48,6 +48,8 @@ pull:
     --include "StrCmp.c++"                  \
     --include "Factorial.h"                 \
     --include "Factorial.c++"               \
+    --include "Equal.h"                     \
+    --include "Factorial.c++"               \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 
