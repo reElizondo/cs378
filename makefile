@@ -33,6 +33,7 @@ pull:
     --include "Exceptions3.c++"             \
     --include "Types.c++"                   \
     --include "Operators.c++"               \
+    --include "StackVsHeap.c++"             \
     --exclude "*"                           \
     ../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \

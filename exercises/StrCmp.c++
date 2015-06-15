@@ -4,7 +4,6 @@
 
 // http://www.cplusplus.com/reference/cstring/strcmp/
 
-#include <cassert>  // assert
 #include <cstring>  // strcmp
 #include <iostream> // cout, endl
 
