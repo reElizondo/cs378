@@ -100,8 +100,8 @@ int main () {
     assert(sizeof(long double) == 16);
     {
     ostringstream out;
-    out << numeric_limits<long double>::min();
     cout << numeric_limits<long double>::min();
+    out << numeric_limits<long double>::min();
     assert(out.str() == "3.3621e-4932");
     }
     {
