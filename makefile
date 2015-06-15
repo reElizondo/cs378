@@ -49,7 +49,7 @@ pull:
     --include "Factorial.h"                 \
     --include "Factorial.c++"               \
     --include "Equal.h"                     \
-    --include "Factorial.c++"               \
+    --include "Equal.c++"                   \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 
