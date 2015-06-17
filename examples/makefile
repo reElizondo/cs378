@@ -7,7 +7,6 @@ FILES :=        \
     Exceptions  \
     Exceptions2 \
     Exceptions3 \
-    Types       \
     Operators
 
 ifeq ($(shell uname), Darwin)
