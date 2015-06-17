@@ -37,6 +37,7 @@ pull:
     --include "Selection.c++"               \
     --include "Iteration.c++"               \
     --include "Variables.c++"               \
+    --include "Lambdas.c++"                 \
     --exclude "*"                           \
     ../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
@@ -50,6 +51,8 @@ pull:
     --include "Factorial.c++"               \
     --include "Equal.h"                     \
     --include "Equal.c++"                   \
+    --include "Fill.h"                      \
+    --include "Fill.c++"                    \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 

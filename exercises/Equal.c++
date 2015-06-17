@@ -4,11 +4,12 @@
 
 // http://www.cplusplus.com/reference/algorithm/equal/
 
-#include <algorithm> // equal
-#include <cassert>   // assert
-#include <iostream>  // cout, endl
-#include <list>      // list
-#include <vector>    // vector
+#include <algorithm>  // equal
+#include <cassert>    // assert
+#include <functional> // function
+#include <iostream>   // cout, endl
+#include <list>       // list
+#include <vector>     // vector
 
 #include "gtest/gtest.h"
 
@@ -19,7 +20,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-typedef bool (*Equal_Array_Signature) (const int*, const int*, const int*);
+typedef std::function<bool (const int*, const int*, const int*)> Equal_Array_Signature;
 
 struct Equal_Array_Fixture : TestWithParam<Equal_Array_Signature> {
     const int _a[3];

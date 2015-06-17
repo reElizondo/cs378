@@ -2,9 +2,10 @@
 // Factorial.c++
 // -------------
 
-#include <ctime>    // clock, clock_t, CLOCKS_PER_SEC
-#include <iomanip>  // setprecision, setw
-#include <iostream> // cout, endl
+#include <ctime>      // clock, clock_t, CLOCKS_PER_SEC
+#include <functional> // function
+#include <iomanip>    // setprecision, setw
+#include <iostream>   // cout, endl
 
 #include "gtest/gtest.h"
 
@@ -15,7 +16,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-typedef int (*Factorial_Signature) (int);
+typedef std::function<int (int)> Factorial_Signature;
 
 struct Factorial_Fixture : TestWithParam<Factorial_Signature> {};
 

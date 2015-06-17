@@ -7,7 +7,11 @@ FILES :=        \
     Exceptions  \
     Exceptions2 \
     Exceptions3 \
-    Operators
+    Operators   \
+    Selection   \
+    Iteration   \
+    Variables   \
+    Lambdas
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++

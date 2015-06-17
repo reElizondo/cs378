@@ -4,8 +4,9 @@
 
 // http://www.cplusplus.com/reference/cstring/strcmp/
 
-#include <cstring>  // strcmp
-#include <iostream> // cout, endl
+#include <cstring>    // strcmp
+#include <functional> // function
+#include <iostream>   // cout, endl
 
 #include "gtest/gtest.h"
 
@@ -14,7 +15,7 @@
 using testing::TestWithParam;
 using testing::Values;
 
-typedef int (*Str_Cmp_Signature) (const char*, const char*);
+typedef std::function<int (const char*, const char*)> Str_Cmp_Signature;
 
 struct Str_Cmp_Fixture : TestWithParam<Str_Cmp_Signature> {};
 

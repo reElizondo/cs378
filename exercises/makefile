@@ -1,7 +1,9 @@
 FILES :=      \
     IsPrime1  \
     IsPrime2  \
-    Factorial
+    Factorial \
+    Equal     \
+    Fill
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++
