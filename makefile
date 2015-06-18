@@ -54,6 +54,8 @@ pull:
     --include "Equal.c++"                   \
     --include "Fill.h"                      \
     --include "Fill.c++"                    \
+    --include "Copy.h"                      \
+    --include "Copy.c++"                    \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \

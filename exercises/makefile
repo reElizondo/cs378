@@ -3,7 +3,8 @@ FILES :=      \
     IsPrime2  \
     Factorial \
     Equal     \
-    Fill
+    Fill      \
+    Copy
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++

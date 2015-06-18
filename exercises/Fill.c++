@@ -29,7 +29,7 @@ INSTANTIATE_TEST_CASE_P(
            fill<list<int>::iterator, int>,
         my_fill<list<int>::iterator, int>));
 
-TEST_P(Fill_List_Fixture, test_1) {
+TEST_P(Fill_List_Fixture, test) {
     const size_t s = 3;
     const int    v = 5;
     list<int>    x(s);
