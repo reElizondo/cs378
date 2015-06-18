@@ -13,7 +13,7 @@ ifeq ($(shell uname), Darwin)
     LDFLAGS   := -lgtest_main
     VALGRIND  :=
 else ifeq ($(CXX), clang++)
-    CXXVER    := --version | grep clang
+    CXXVER    := --version 2>&1 | grep clang
     GTESTVER  := dpkg -l libgtest-dev | grep libgtest
     GCOV      := gcov-4.6
     GCOVFLAGS := --coverage
@@ -23,7 +23,7 @@ else ifeq ($(CXX), clang++)
     VALGRIND  := valgrind
 else
     CXX       := g++-4.8
-    CXXVER    := --version | grep g++
+    CXXVER    := --version 2>&1 | grep g++
     GTESTVER  := dpkg -l libgtest-dev | grep libgtest
     GCOV      := gcov-4.8
     GCOVFLAGS := -fprofile-arcs -ftest-coverage

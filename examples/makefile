@@ -11,7 +11,8 @@ FILES :=        \
     Selection   \
     Iteration   \
     Variables   \
-    Lambdas
+    Lambdas     \
+    Consts
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++

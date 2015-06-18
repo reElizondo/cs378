@@ -38,6 +38,7 @@ pull:
     --include "Iteration.c++"               \
     --include "Variables.c++"               \
     --include "Lambdas.c++"                 \
+    --include "Consts.c++"                  \
     --exclude "*"                           \
     ../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
@@ -55,6 +56,12 @@ pull:
     --include "Fill.c++"                    \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
+	@rsync -r -t -u -v --delete             \
+    --include "Quiz3.c++"                   \
+    --include "Quiz5.c++"                   \
+    --include "Quiz6.c++"                   \
+    --exclude "*"                           \
+    ../../quizzes/ quizzes
 
 push:
 	make clean
