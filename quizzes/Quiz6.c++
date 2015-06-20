@@ -29,9 +29,9 @@ d.
 #include <iostream> // boolalpha, cout, endl
 using namespace std;
 int main () {
-int a[] = {2, 3, 4, 2, 3};
-cout << equal(a + 1, a + 3, a + 1) << " ";
-cout << equal(a,     a + 2, a + 3) << endl;
+    int a[] = {2, 3, 4, 2, 3};
+    cout << equal(a + 1, a + 3, a + 1) << " ";
+    cout << equal(a,     a + 2, a + 3) << endl;
     return 0;}
 
 /* -----------------------------------------------------------------------
