@@ -16,7 +16,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-typedef std::function<int (int)> Factorial_Signature;
+using Factorial_Signature = std::function<int (int)>;
 
 struct Factorial_Fixture : TestWithParam<Factorial_Signature> {};
 

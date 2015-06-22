@@ -20,7 +20,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-typedef std::function<bool (const int*, const int*, const int*)> Equal_Array_Signature;
+using Equal_Array_Signature = std::function<bool (const int*, const int*, const int*)>;
 
 struct Equal_Array_Fixture : TestWithParam<Equal_Array_Signature> {
     const int _a[3];

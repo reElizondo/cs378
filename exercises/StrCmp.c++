@@ -15,7 +15,7 @@
 using testing::TestWithParam;
 using testing::Values;
 
-typedef std::function<int (const char*, const char*)> Str_Cmp_Signature;
+using Str_Cmp_Signature = std::function<int (const char*, const char*)>;
 
 struct Str_Cmp_Fixture : TestWithParam<Str_Cmp_Signature> {};
 

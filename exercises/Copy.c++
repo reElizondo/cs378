@@ -19,7 +19,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-typedef std::function<vector<int>::iterator (list<int>::const_iterator, list<int>::const_iterator, vector<int>::iterator)> Copy_List_Signature;
+using Copy_List_Signature = std::function<vector<int>::iterator (list<int>::const_iterator, list<int>::const_iterator, vector<int>::iterator)>;
 
 struct Copy_List_Fixture : TestWithParam<Copy_List_Signature>
     {};
