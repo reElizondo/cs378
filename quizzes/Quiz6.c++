@@ -35,7 +35,7 @@ int main () {
     return 0;}
 
 /* -----------------------------------------------------------------------
- 3. What is the WEAKEST iterator that the algorithm std::equal() can demand?
+ 3. What is the WEAKEST iterator that std::equal() needs?
     (4 pts)
 
 a. input
@@ -48,7 +48,7 @@ a.
 */
 
 /* -----------------------------------------------------------------------
- 4. What is the STRONGEST iterator that the container std::set can provide?
+ 4. What is the STRONGEST iterator that std::set provides?
     std::set is a red-black binary search tree.
     (4 pts)
 

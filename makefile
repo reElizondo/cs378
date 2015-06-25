@@ -62,6 +62,8 @@ pull:
     --include "Quiz3.c++"                   \
     --include "Quiz5.c++"                   \
     --include "Quiz6.c++"                   \
+    --include "Quiz7.c++"                   \
+    --include "Quiz8.c++"                   \
     --exclude "*"                           \
     ../../quizzes/ quizzes
 

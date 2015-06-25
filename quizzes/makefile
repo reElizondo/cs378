@@ -1,6 +1,9 @@
 FILES :=  \
     Quiz3 \
-    Quiz5
+    Quiz5 \
+    Quiz6 \
+    Quiz7 \
+    Quiz8
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++
