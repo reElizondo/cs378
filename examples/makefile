@@ -12,6 +12,7 @@ FILES :=        \
     Iteration   \
     Variables   \
     Lambdas     \
+    Iterators   \
     Consts
 
 ifeq ($(shell uname), Darwin)

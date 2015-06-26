@@ -38,6 +38,7 @@ pull:
     --include "Iteration.c++"               \
     --include "Variables.c++"               \
     --include "Lambdas.c++"                 \
+    --include "Iterators.c++"               \
     --include "Consts.c++"                  \
     --exclude "*"                           \
     ../../../examples/c++/ examples
