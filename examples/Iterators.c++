@@ -4,8 +4,10 @@
 
 // http://www.cplusplus.com/reference/iterator/
 
-#include <cassert>    // assert
-#include <iostream>   // cout, endl
+#include <algorithm> // copy, equal
+#include <cassert>   // assert
+#include <iostream>  // cout, endl
+#include <vector>    // vector
 
 class A {
     public:
@@ -40,6 +42,7 @@ int main () {
     using namespace std;
     cout << "Iterators.c++" << endl;
 
+    {
     A x;
     A::B b = x.begin();
     A::B e = x.end();
@@ -50,6 +53,15 @@ int main () {
     assert(*b == 4);
     ++b;
     assert(b == e);
+    }
+
+    {
+    A x;
+    vector<int> y(3);
+    copy(x.begin(), x.end(), y.begin());
+    vector<int> z = {2, 3, 4};
+    assert(equal(y.begin(), y.end(), z.begin()));
+    }
 
     cout << "Done." << endl;
     return 0;}
