@@ -40,6 +40,8 @@ int main () {
     assert(f(add, 2, 3, 4) == 9);
     assert(f(x,   2, 3, 4) == 9);
     assert(f(y,   2, 3, 4) == 9);
+
+//  y = x; // error: assigning to 'int (*)(int, int)' from incompatible type 'BF' (aka 'function<int (int, int)>')
     }
 
     {
@@ -53,6 +55,8 @@ int main () {
     assert(f([] (int i, int j) -> int {return i + j;}, 2, 3, 4) == 9);
     assert(f(x,                                        2, 3, 4) == 9);
     assert(f(y,                                        2, 3, 4) == 9);
+
+//  y = x; // error: no viable overloaded '='
     }
 
     {
@@ -66,6 +70,8 @@ int main () {
     assert(f(g(), 2, 3, 4) == 9);
     assert(f(x,   2, 3, 4) == 9);
     assert(f(y,   2, 3, 4) == 9);
+
+    y = x;
     }
 
     {
@@ -76,6 +82,8 @@ int main () {
     assert([i] (int j) -> int {return i + j;}(3) == 5);
     assert(x                                 (3) == 5);
     assert(y                                 (3) == 5);
+
+//  y = x; // error: no viable overloaded '='
     }
 
     {
@@ -85,6 +93,8 @@ int main () {
     assert(h(2)(3) == 5);
     assert(x   (3) == 5);
     assert(y   (3) == 5);
+
+    y = x;
     }
 
     cout << "Done." << endl;
