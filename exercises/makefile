@@ -56,6 +56,25 @@ clean:
 	rm -f *.gcno
 	rm -f *.gcov
 
+pull:
+	@rsync -r -t -u -v --delete             \
+    --include "IsPrime1.h"                  \
+    --include "IsPrime1.c++"                \
+    --include "IsPrime2.h"                  \
+    --include "IsPrime2.c++"                \
+    --include "StrCmp.h"                    \
+    --include "StrCmp.c++"                  \
+    --include "Factorial.h"                 \
+    --include "Factorial.c++"               \
+    --include "Equal.h"                     \
+    --include "Equal.c++"                   \
+    --include "Fill.h"                      \
+    --include "Fill.c++"                    \
+    --include "Copy.h"                      \
+    --include "Copy.c++"                    \
+    --exclude "*"                           \
+    ../../../../exercises/c++/ .
+
 sync:
 	make clean
 	@echo `pwd`

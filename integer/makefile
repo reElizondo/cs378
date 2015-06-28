@@ -1,10 +1,3 @@
-FILES :=  \
-    Quiz3 \
-    Quiz5 \
-    Quiz6 \
-    Quiz7 \
-    Quiz8
-
 ifeq ($(shell uname), Darwin)
     CXX       := g++
     CXXVER    := --version 2>&1 | grep c++
@@ -40,42 +33,22 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 
 .PRECIOUS: %.app
 
-%.app: %.c++
-	@echo
-	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
-
-%.c++.gcov: %.app
-	$(VALGRIND) ./$<
-	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
-	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
-
 clean:
-	rm -f *.app
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-
-pull:
-	@rsync -r -t -u -v --delete             \
-    --include "Quiz3.c++"                   \
-    --include "Quiz5.c++"                   \
-    --include "Quiz6.c++"                   \
-    --include "Quiz7.c++"                   \
-    --include "Quiz8.c++"                   \
-    --exclude "*"                           \
-    ../../../quizzes/ .
+	rm -f RunInteger
 
 sync:
-	make clean
 	@echo `pwd`
-	@rsync -r -t -u -v --delete \
-    --include "*.c++"           \
-    --include "*.h"             \
-    --include "makefile"        \
-    --exclude "*"               \
-    . downing@$(CS):cs/cs378/github/c++/quizzes/
+	@rsync -r -t -u -v --delete        \
+    --include "Integer.h"              \
+    --include "makefile"               \
+    --include "RunInteger.c++"         \
+    --exclude "*"                      \
+    . downing@$(CS):cs/cs378/github/c++/integer/
 
-test: $(FILES:=.c++.gcov)
+test: RunInteger.out TestInteger.out
 
 versions:
 	uname -a
@@ -103,3 +76,20 @@ endif
 	which doxygen
 	@echo
 	doxygen --version
+
+RunInteger: Integer.h Integer.c++ RunInteger.c++
+	$(CXX) $(CXXFLAGS) Integer.c++ RunInteger.c++ -o RunInteger
+
+RunInteger.out: RunInteger
+	cat RunInteger.in
+	./RunInteger < RunInteger.in > RunInteger.out
+	cat RunInteger.out
+
+TestInteger: Integer.h Integer.c++ TestInteger.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) Integer.c++ TestInteger.c++ -o TestInteger $(LDFLAGS)
+
+TestInteger.out: TestInteger
+	$(VALGRIND) ./TestInteger  >  TestInteger.out 2>&1
+	$(GCOV) -b Integer.c++     >> TestInteger.out
+	$(GCOV) -b TestInteger.c++ >> TestInteger.out
+	cat TestInteger.out

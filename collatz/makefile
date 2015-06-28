@@ -1,10 +1,3 @@
-FILES :=  \
-    Quiz3 \
-    Quiz5 \
-    Quiz6 \
-    Quiz7 \
-    Quiz8
-
 ifeq ($(shell uname), Darwin)
     CXX       := g++
     CXXVER    := --version 2>&1 | grep c++
@@ -40,42 +33,32 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 
 .PRECIOUS: %.app
 
-%.app: %.c++
-	@echo
-	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
-
-%.c++.gcov: %.app
-	$(VALGRIND) ./$<
-	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
-	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
-
 clean:
-	rm -f *.app
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-
-pull:
-	@rsync -r -t -u -v --delete             \
-    --include "Quiz3.c++"                   \
-    --include "Quiz5.c++"                   \
-    --include "Quiz6.c++"                   \
-    --include "Quiz7.c++"                   \
-    --include "Quiz8.c++"                   \
-    --exclude "*"                           \
-    ../../../quizzes/ .
+	rm -f RunCollatz
+	rm -f RunCollatz.out
+	rm -f TestCollatz
+	rm -f TestCollatz.out
 
 sync:
-	make clean
 	@echo `pwd`
-	@rsync -r -t -u -v --delete \
-    --include "*.c++"           \
-    --include "*.h"             \
-    --include "makefile"        \
-    --exclude "*"               \
-    . downing@$(CS):cs/cs378/github/c++/quizzes/
+	@rsync -r -t -u -v --delete        \
+    --include "Collatz.c++"            \
+    --include "Collatz.h"              \
+    --include "gitignore.sample"       \
+    --include "makefile.sample"        \
+    --include "makefile"               \
+    --include "RunCollatz.c++"         \
+    --include "RunCollatz.in"          \
+    --include "RunCollatz.sample.out"  \
+    --include "TestCollatz.c++"        \
+    --include "TestCollatz.sample.out" \
+    --exclude "*"                      \
+    . downing@$(CS):cs/cs378/github/c++/collatz/
 
-test: $(FILES:=.c++.gcov)
+test: RunCollatz.out TestCollatz.out
 
 versions:
 	uname -a
@@ -103,3 +86,20 @@ endif
 	which doxygen
 	@echo
 	doxygen --version
+
+RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
+	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
+
+RunCollatz.out: RunCollatz
+	cat RunCollatz.in
+	./RunCollatz < RunCollatz.in > RunCollatz.out
+	cat RunCollatz.out
+
+TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
+	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
+
+TestCollatz.out: TestCollatz
+	$(VALGRIND) ./TestCollatz  >  TestCollatz.out 2>&1
+	$(GCOV) -b Collatz.c++     >> TestCollatz.out
+	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out
+	cat TestCollatz.out
