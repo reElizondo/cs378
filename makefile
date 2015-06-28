@@ -69,6 +69,7 @@ pull:
     --include "Quiz6.c++"                   \
     --include "Quiz7.c++"                   \
     --include "Quiz8.c++"                   \
+    --include "Quiz9.c++"                   \
     --exclude "*"                           \
     ../../quizzes/ quizzes
 	@rsync -r -t -u -v --delete             \

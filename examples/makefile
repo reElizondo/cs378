@@ -54,7 +54,10 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 	@echo
 	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 
-%.c++.gcov: %.app
+%.c++x: %.app
+	./$<
+
+%.c++y: %.app
 	$(VALGRIND) ./$<
 	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
 	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
@@ -64,33 +67,6 @@ clean:
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-
-pull:
-	@rsync -r -t -u -v --delete             \
-    --include "Hello.c++"                   \
-    --include "Assertions.c++"              \
-    --include "Collatz1.h"                  \
-    --include "Collatz2.h"                  \
-    --include "UnitTests1.c++"              \
-    --include "UnitTests2.c++"              \
-    --include "UnitTests3.c++"              \
-    --include "Coverage1.c++"               \
-    --include "Coverage2.c++"               \
-    --include "Coverage3.c++"               \
-    --include "Exceptions.c++"              \
-    --include "Exceptions2.c++"             \
-    --include "Exceptions3.c++"             \
-    --include "Types.c++"                   \
-    --include "Operators.c++"               \
-    --include "StackVsHeap.c++"             \
-    --include "Selection.c++"               \
-    --include "Iteration.c++"               \
-    --include "Variables.c++"               \
-    --include "Lambdas.c++"                 \
-    --include "Iterators.c++"               \
-    --include "Consts.c++"                  \
-    --exclude "*"                           \
-    ../../../../examples/c++/ .
 
 sync:
 	make clean
@@ -102,7 +78,7 @@ sync:
     --exclude "*"               \
     . downing@$(CS):cs/cs378/github/c++/examples/
 
-test: $(FILES:=.c++.gcov)
+test: $(FILES:=.c++x)
 
 versions:
 	uname -a

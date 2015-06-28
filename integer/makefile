@@ -48,7 +48,7 @@ sync:
     --exclude "*"                      \
     . downing@$(CS):cs/cs378/github/c++/integer/
 
-test: RunInteger.out TestInteger.out
+test: RunInteger.out
 
 versions:
 	uname -a
@@ -77,19 +77,9 @@ endif
 	@echo
 	doxygen --version
 
-RunInteger: Integer.h Integer.c++ RunInteger.c++
-	$(CXX) $(CXXFLAGS) Integer.c++ RunInteger.c++ -o RunInteger
+RunInteger: Integer.h RunInteger.c++
+	$(CXX) $(CXXFLAGS) RunInteger.c++ -o RunInteger
 
 RunInteger.out: RunInteger
-	cat RunInteger.in
-	./RunInteger < RunInteger.in > RunInteger.out
+	./RunInteger > RunInteger.out
 	cat RunInteger.out
-
-TestInteger: Integer.h Integer.c++ TestInteger.c++
-	$(CXX) $(COVFLAGS) $(CXXFLAGS) Integer.c++ TestInteger.c++ -o TestInteger $(LDFLAGS)
-
-TestInteger.out: TestInteger
-	$(VALGRIND) ./TestInteger  >  TestInteger.out 2>&1
-	$(GCOV) -b Integer.c++     >> TestInteger.out
-	$(GCOV) -b TestInteger.c++ >> TestInteger.out
-	cat TestInteger.out

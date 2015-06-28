@@ -4,10 +4,18 @@
 
 // http://www.cplusplus.com/reference/iterator/
 
-#include <algorithm> // copy, equal
+#include <algorithm> // equal
 #include <cassert>   // assert
 #include <iostream>  // cout, endl
 #include <vector>    // vector
+
+template <typename II, typename OI>
+OI my_copy (II b, II e, OI x) {
+    while (b != e) {
+        *x = *b;
+        ++b;
+        ++x;}
+    return x;}
 
 class A {
     public:
@@ -58,7 +66,7 @@ int main () {
     {
     A x;
     vector<int> y(3);
-    copy(x.begin(), x.end(), y.begin());
+    my_copy(x.begin(), x.end(), y.begin());
     vector<int> z = {2, 3, 4};
     assert(equal(y.begin(), y.end(), z.begin()));
     }

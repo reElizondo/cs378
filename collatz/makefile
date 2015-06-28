@@ -96,7 +96,7 @@ RunCollatz.out: RunCollatz
 	cat RunCollatz.out
 
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
-	$(CXX) $(COVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
+	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 
 TestCollatz.out: TestCollatz
 	$(VALGRIND) ./TestCollatz  >  TestCollatz.out 2>&1

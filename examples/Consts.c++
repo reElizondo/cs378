@@ -34,6 +34,7 @@ int main () {
     ++*p;
     assert(i == 3);
 //  p = &ci;        // error: invalid conversion from 'const int*' to 'int*'
+    assert(ci);
     }
 
     // read-only, many-location pointer
@@ -64,6 +65,7 @@ int main () {
 //  cp = &i;                   // error: assignment of read-only variable 'cp'
     ++*cp;
     assert(i == 3);
+    assert(ci);
     }
 
     // read-only, one-location pointer
@@ -75,6 +77,8 @@ int main () {
     const int* const cqc = &i;
 //  cqc = &ci;                  // error: assignment of read-only variable 'cqc'
 //  ++*cqc;                     // error: increment of read-only location
+    assert(cpc);
+    assert(cqc);
     }
 
     // read/write reference
@@ -87,6 +91,7 @@ int main () {
           int& r = i;
     ++r;
     assert(i == 3);
+    assert(ci);
     }
 
     // read-only reference
@@ -97,6 +102,8 @@ int main () {
     const int& rc = ci;
     const int& sc = i;
 //  ++sc;               // error: increment of read-only reference 'sc'
+    assert(rc);
+    assert(sc);
     }
 
     cout << "Done." << endl;

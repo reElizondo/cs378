@@ -45,7 +45,10 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 	@echo
 	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 
-%.c++.gcov: %.app
+%.c++x: %.app
+	./$<
+
+%.c++y: %.app
 	$(VALGRIND) ./$<
 	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
 	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
@@ -55,25 +58,6 @@ clean:
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-
-pull:
-	@rsync -r -t -u -v --delete             \
-    --include "IsPrime1.h"                  \
-    --include "IsPrime1.c++"                \
-    --include "IsPrime2.h"                  \
-    --include "IsPrime2.c++"                \
-    --include "StrCmp.h"                    \
-    --include "StrCmp.c++"                  \
-    --include "Factorial.h"                 \
-    --include "Factorial.c++"               \
-    --include "Equal.h"                     \
-    --include "Equal.c++"                   \
-    --include "Fill.h"                      \
-    --include "Fill.c++"                    \
-    --include "Copy.h"                      \
-    --include "Copy.c++"                    \
-    --exclude "*"                           \
-    ../../../../exercises/c++/ .
 
 sync:
 	make clean
@@ -85,7 +69,7 @@ sync:
     --exclude "*"               \
     . downing@$(CS):cs/cs378/github/c++/exercises/
 
-test: $(FILES:=.c++.gcov)
+test: $(FILES:=.c++x)
 
 versions:
 	uname -a
