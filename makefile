@@ -82,6 +82,7 @@ pull:
     --include "RunCollatz.sample.out"       \
     --include "TestCollatz.c++"             \
     --include "TestCollatz.sample.out"      \
+    --include "travis.sample.yml"           \
     --exclude "*"                           \
     ../../../projects/c++/collatz/ collatz
 	@rsync -r -t -u -v --delete             \
