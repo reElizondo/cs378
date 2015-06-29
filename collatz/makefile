@@ -43,6 +43,7 @@ clean:
 	rm -f TestCollatz.out
 
 sync:
+	make clean
 	@echo `pwd`
 	@rsync -r -t -u -v --delete        \
     --include "Collatz.c++"            \
