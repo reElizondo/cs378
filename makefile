@@ -61,6 +61,8 @@ pull:
     --include "Fill.c++"                    \
     --include "Copy.h"                      \
     --include "Copy.c++"                    \
+    --include "Stack.h"                     \
+    --include "Stack.c++"                   \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \

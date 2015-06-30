@@ -4,7 +4,8 @@ FILES :=      \
     Factorial \
     Equal     \
     Fill      \
-    Copy
+    Copy      \
+    Stack
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++
