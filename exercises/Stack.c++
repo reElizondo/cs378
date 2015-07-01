@@ -61,8 +61,22 @@ TYPED_TEST(Stack_Fixture, test_2) {
     x.push(2);
     x.push(3);
     x.push(4);
+    x.top() = 5;
+    ASSERT_EQ(x.top(), 5);
 
-    stack_type y(x);
+    const stack_type& r = x;
+//  r.top() = 6;             // error: member function 'push' not viable: 'this' argument has type 'const stack_type'
+    ASSERT_EQ(r.top(), 5);}
+
+TYPED_TEST(Stack_Fixture, test_3) {
+    typedef typename TestFixture::stack_type stack_type;
+
+    stack_type x;
+    x.push(2);
+    x.push(3);
+    x.push(4);
+
+    stack_type y = x;
     ASSERT_EQ(y, x);
 
     y.pop();
@@ -71,7 +85,7 @@ TYPED_TEST(Stack_Fixture, test_2) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(y.top(),  3);}
 
-TYPED_TEST(Stack_Fixture, test_3) {
+TYPED_TEST(Stack_Fixture, test_4) {
     typedef typename TestFixture::stack_type stack_type;
 
     stack_type x;
@@ -92,7 +106,7 @@ TYPED_TEST(Stack_Fixture, test_3) {
     ASSERT_EQ(y.size(), 2);
     ASSERT_EQ(y.top(),  3);}
 
-TYPED_TEST(Stack_Fixture, test_4) {
+TYPED_TEST(Stack_Fixture, test_5) {
     typedef typename TestFixture::stack_type stack_type;
 
     stack_type x;
