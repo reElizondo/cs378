@@ -137,15 +137,15 @@ sync:
 	cd integer; make sync
 
 test:
-	cd examples; ls -al; make --no-print-directory test
+	cd examples; ls -al; ls -al; make --no-print-directory test
 	@echo
-	cd exercises; ls -al; make --no-print-directory test
+	cd exercises; ls -al; ls -al; make --no-print-directory test
 	@echo
-	cd quizzes; ls -al; make --no-print-directory test
+	cd quizzes; ls -al; ls -al; make --no-print-directory test
 	@echo
-	cd collatz; ls -al; make --no-print-directory test
+	cd collatz; ls -al; ls -al; make --no-print-directory test
 	@echo
-	cd integer; ls -al; make --no-print-directory test
+	cd integer; ls -al; ls -al; make --no-print-directory test
 
 versions:
 	uname -a
