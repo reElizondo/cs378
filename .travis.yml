@@ -21,13 +21,12 @@ install:
     - sudo apt-get install doxygen
 
 before_script:
+    - make config
     - make versions
     - make versions CXX=clang++
 
 script:
     - date
-    - ls -al
-    - make config
     - make test
     - make clean
     - make test CXX=clang++

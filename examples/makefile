@@ -81,10 +81,6 @@ sync:
 test: $(FILES:=.c++x)
 
 versions:
-	uname -a
-	@echo
-	printenv
-	@echo
 	which $(CXX)
 	@echo hi
 	$(CXX) $(CXXVER)
