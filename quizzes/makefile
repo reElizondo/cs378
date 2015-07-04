@@ -48,11 +48,6 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 %.c++x: %.app
 	./$<
 
-%.c++y: %.app
-	$(VALGRIND) ./$<
-	-$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File './$(<:.app=.h)'"
-	$(GCOV) -b $(<:.app=.c++) | grep -A 5 "File '$(<:.app=.c++)'"
-
 clean:
 	rm -f *.app
 	rm -f *.gcda
