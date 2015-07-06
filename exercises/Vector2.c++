@@ -2,30 +2,41 @@
 // Vector2.c++
 // -----------
 
-#include <algorithm> // equal
-#include <cassert>   // assert
-#include <iostream>  // cout, endl
-#include <vector>    // vector
+// http://www.cplusplus.com/reference/vector/vector/
+
+#include <vector> // vector
+
+#include "gtest/gtest.h"
 
 #include "Vector2.h"
 
 using namespace std;
 
-int main () {
-    cout << "Vector2.c++" << endl;
+using testing::Test;
+using testing::Types;
 
-    {
-    const my_vector<int> x(10, 2);
-    const my_vector<int> y = x;
-    assert(equal(x.begin(), x.end(), y.begin()) == true);
-    }
+template <typename T>
+struct Vector_Fixture : Test {
+    typedef T vector_type;};
 
-    {
-          my_vector<int> x(10, 2);
-    const my_vector<int> y(20, 3);
+typedef Types<
+               vector<int>,
+            my_vector<int>>
+        vector_types;
+
+TYPED_TEST_CASE(Vector_Fixture, vector_types);
+
+TYPED_TEST(Vector_Fixture, test_1) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x(10, 2);
+    const vector_type y = x;
+    assert(equal(x.begin(), x.end(), y.begin()) == true);}
+
+TYPED_TEST(Vector_Fixture, test_2) {
+    typedef typename TestFixture::vector_type vector_type;
+
+          vector_type x(10, 2);
+    const vector_type y(20, 3);
     x = y;
-    assert(equal(x.begin(), x.end(), y.begin()) == true);
-    }
-
-    cout << "Done." << endl;
-    return 0;}
+    assert(equal(x.begin(), x.end(), y.begin()) == true);}

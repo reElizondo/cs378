@@ -2,38 +2,50 @@
 // Vector1.c++
 // -----------
 
-#include <algorithm> // equal, fill
-#include <cassert>   // assert
-#include <iostream>  // cout, endl
-#include <vector>    // vector
+// http://www.cplusplus.com/reference/vector/vector/
+
+#include <vector> // vector
+
+#include "gtest/gtest.h"
 
 #include "Vector1.h"
 
 using namespace std;
 
-int main () {
-    cout << "Vector1.c++" << endl;
+using testing::Test;
+using testing::Types;
 
-    {
-    my_vector<int> x;
-    assert(x.size() == 0);
-    }
+template <typename T>
+struct Vector_Fixture : Test {
+    typedef T vector_type;};
 
-    {
-    my_vector<int> x(3);
-    assert(x.size() == 3);
-    assert(x[1] == 0);
+typedef Types<
+               vector<int>,
+            my_vector<int>>
+        vector_types;
+
+TYPED_TEST_CASE(Vector_Fixture, vector_types);
+
+TYPED_TEST(Vector_Fixture, test_1) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x;
+    ASSERT_EQ(x.size(), 0);}
+
+TYPED_TEST(Vector_Fixture, test_2) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x(3);
+    ASSERT_EQ(x.size(), 3);
+    ASSERT_EQ(x[1], 0);
     x[1] = 2;
-    assert(x[1] == 2);
+    ASSERT_EQ(x[1], 2);
     fill(x.begin(), x.end(), 4);
-    assert(x[1] == 4);
-    }
+    ASSERT_EQ(x[1], 4);}
 
-    {
-    const my_vector<int> x(3, 4);
-    const my_vector<int> y(6, 4);
-    assert(equal(x.begin(), x.end(), y.begin()));
-    }
+TYPED_TEST(Vector_Fixture, test_3) {
+    typedef typename TestFixture::vector_type vector_type;
 
-    cout << "Done." << endl;
-    return 0;}
+    const vector_type x(3, 4);
+    const vector_type y(6, 4);
+    ASSERT_TRUE(equal(x.begin(), x.end(), y.begin()));}

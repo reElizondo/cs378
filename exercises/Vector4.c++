@@ -2,163 +2,176 @@
 // Vector4.c++
 // -----------
 
+// http://www.cplusplus.com/reference/vector/vector/
+
 #include <algorithm> // count
-#include <cassert>   // assert
-#include <cstring>   // strcmp
 #include <iostream>  // cout, endl
 #include <stdexcept> // out_of_range
-#include <string>    // string
 #include <vector>    // vector
+
+#include "gtest/gtest.h"
 
 #include "Vector4.h"
 
-template <typename C>
-void vectors (
-        const typename C::value_type& v1,
-        const typename C::value_type& v2,
-        const typename C::value_type& v3) {
+using namespace std;
 
-    typedef typename C::value_type value_type;
+using testing::Test;
+using testing::Types;
 
-    {
-    const C x;
-    assert(x.empty());
-    assert(x.size()     == 0);
-    assert(x.capacity() == 0);
-    }
+template <typename T>
+struct Vector_Fixture : Test {
+    typedef T                                vector_type;
+    typedef typename vector_type::value_type value_type;};
 
-    {
-    C x(10);
-    assert(!x.empty());
-    assert(x.size()                                     == 10);
-    assert(x.capacity()                                 == 10);
-    assert(std::count(x.begin(), x.end(), value_type()) == 10);
-    }
+typedef Types<
+               vector<int>,
+            my_vector<int>>
+        vector_types;
 
-    {
-    const C x(10, v1);
-    assert(!x.empty());
-    assert(x.size()                           == 10);
-    assert(x.capacity()                       == 10);
-    assert(std::count(x.begin(), x.end(), v1) == 10);
-    }
+TYPED_TEST_CASE(Vector_Fixture, vector_types);
 
-    {
-    C x(10);
-    assert(x.size()     == 10);
-    assert(x.capacity() == 10);
+TYPED_TEST(Vector_Fixture, test_1) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x;
+    ASSERT_TRUE(x.empty());
+    ASSERT_EQ(x.size(),     0);
+    ASSERT_EQ(x.capacity(), 0);}
+
+
+TYPED_TEST(Vector_Fixture, test_2) {
+    typedef typename TestFixture::vector_type vector_type;
+    typedef typename TestFixture::value_type  value_type;
+
+    vector_type x(10);
+    ASSERT_FALSE(x.empty());
+    ASSERT_EQ(x.size(),                                10);
+    ASSERT_EQ(x.capacity(),                            10);
+    ASSERT_EQ(count(x.begin(), x.end(), value_type()), 10);}
+
+TYPED_TEST(Vector_Fixture, test_3) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x(10, 2);
+    ASSERT_FALSE(x.empty());
+    ASSERT_EQ(x.size(),                     10);
+    ASSERT_EQ(x.capacity(),                 10);
+    ASSERT_EQ(count(x.begin(), x.end(), 2), 10);}
+
+TYPED_TEST(Vector_Fixture, test_4) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x(10);
+    ASSERT_EQ(x.size(),     10);
+    ASSERT_EQ(x.capacity(), 10);
     x.reserve(5);
-    assert(x.size()     == 10);
-    assert(x.capacity() == 10);
+    ASSERT_EQ(x.size(),     10);
+    ASSERT_EQ(x.capacity(), 10);
     x.reserve(15);
-    assert(x.size()     == 10);
-    assert(x.capacity() == 15);
-    }
+    ASSERT_EQ(x.size(),     10);
+    ASSERT_EQ(x.capacity(), 15);}
 
-    {
-    C x(10);
-    assert(x.size()     == 10);
-    assert(x.capacity() == 10);
+TYPED_TEST(Vector_Fixture, test_5) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x(10);
+    ASSERT_EQ(x.size(),     10);
+    ASSERT_EQ(x.capacity(), 10);
     x.resize(5);
-    assert(x.size()     ==  5);
-    assert(x.capacity() == 10);
+    ASSERT_EQ(x.size(),      5);
+    ASSERT_EQ(x.capacity(), 10);
     x.resize(8);
-    assert(x.size()     ==  8);
-    assert(x.capacity() == 10);
+    ASSERT_EQ(x.size(),      8);
+    ASSERT_EQ(x.capacity(), 10);
     x.resize(15);
-    assert(x.size()     == 15);
-    assert(x.capacity() >  15);
+    ASSERT_EQ(x.size(),     15);
+    ASSERT_GT(x.capacity(), 15);
     x.resize(50);
-    assert(x.size()     == 50);
-    assert(x.capacity() == 50);
-    }
+    ASSERT_EQ(x.size(),     50);
+    ASSERT_EQ(x.capacity(), 50);}
 
-    {
-    C x(10);
-    x[0] = v1;
-    x[1] = v2;
-    x[2] = v3;
-    assert(x[ 1] == v2);
-//  assert(x[10] == v2);
+TYPED_TEST(Vector_Fixture, test_6) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x(10);
+    x[0] = 2;
+    x[1] = 3;
+    x[2] = 4;
+    ASSERT_EQ(x[ 1], 3);
+//  ASSERT_EQ(x[10], 3);
     try {
-        assert(x.at(10) == v2);
-        assert(false);}
-    catch (const std::out_of_range&)
-        {}
-    }
+        ASSERT_EQ(x.at(10), 3);
+        ASSERT_TRUE(false);}
+    catch (const out_of_range&)
+        {}}
 
-    {
-    C x;
-    x.push_back(v1);
-    x.push_back(v2);
-    x.push_back(v3);
-    x.push_back(v1);
-    x.push_back(v2);
-    assert(x.size()     == 5);
-    assert(x.capacity() == 8);
+TYPED_TEST(Vector_Fixture, test_7) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    vector_type x;
+    x.push_back(2);
+    x.push_back(3);
+    x.push_back(4);
+    x.push_back(2);
+    x.push_back(3);
+    ASSERT_EQ(x.size(),     5);
+    ASSERT_EQ(x.capacity(), 8);
     x.pop_back();
-    assert(x.size()     == 4);
-    assert(x.capacity() == 8);
-    }
+    ASSERT_EQ(x.size(),     4);
+    ASSERT_EQ(x.capacity(), 8);}
 
-    {
-    C x;
-    x.push_back(v1);
-    x.push_back(v2);
-    x.push_back(v3);
-    assert(x.size()     == 3);
-    assert(x.capacity() == 4);
-    const C y(x);
-    assert(y.size()     == 3);
-    assert(y.capacity() == 3);
-    assert(x == y);
-    }
+TYPED_TEST(Vector_Fixture, test_8) {
+    typedef typename TestFixture::vector_type vector_type;
 
-    {
-    const C x(10, v1);
-    C       y(20, v2);
-    assert(y.size()     == 20);
-    assert(y.capacity() == 20);
-    assert(x != y);
+    vector_type x;
+    x.push_back(2);
+    x.push_back(3);
+    x.push_back(4);
+    ASSERT_EQ(x.size(),     3);
+    ASSERT_EQ(x.capacity(), 4);
+    const vector_type y(x);
+    ASSERT_EQ(y.size(),     3);
+    ASSERT_EQ(y.capacity(), 3);
+    ASSERT_EQ(x, y);}
+
+TYPED_TEST(Vector_Fixture, test_9) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x(10, 2);
+    vector_type       y(20, 3);
+    ASSERT_EQ(y.size(),     20);
+    ASSERT_EQ(y.capacity(), 20);
+    ASSERT_TRUE(x != y);
     y = x;
-    assert(y.size()     == 10);
-    assert(y.capacity() == 20);
-    assert(x == y);
-    }
+    ASSERT_EQ(y.size(),     10);
+    ASSERT_EQ(y.capacity(), 20);
+    ASSERT_EQ(x, y);}
 
-    {
-    const C x(15, v1);
-    C       y(10, v2);
-    assert(y.size()     == 10);
-    assert(y.capacity() == 10);
-    y.push_back(v2);
-    assert(y.size()     == 11);
-    assert(y.capacity() == 20);
-    assert(x != y);
+TYPED_TEST(Vector_Fixture, test_10) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x(15, 2);
+    vector_type       y(10, 3);
+    ASSERT_EQ(y.size(),     10);
+    ASSERT_EQ(y.capacity(), 10);
+    y.push_back(3);
+    ASSERT_EQ(y.size(),     11);
+    ASSERT_EQ(y.capacity(), 20);
+    ASSERT_TRUE(x != y);
     y = x;
-    assert(y.size()     == 15);
-    assert(y.capacity() == 20);
-    assert(x == y);
-    }
+    ASSERT_EQ(y.size(),     15);
+    ASSERT_EQ(y.capacity(), 20);
+    ASSERT_EQ(x, y);}
 
-    {
-    const C x(20, v1);
-    C       y(10, v2);
-    assert(y.size()     == 10);
-    assert(y.capacity() == 10);
-    assert(x != y);
+TYPED_TEST(Vector_Fixture, test_11) {
+    typedef typename TestFixture::vector_type vector_type;
+
+    const vector_type x(20, 2);
+    vector_type       y(10, 3);
+    ASSERT_EQ(y.size(),     10);
+    ASSERT_EQ(y.capacity(), 10);
+    ASSERT_TRUE(x != y);
     y = x;
-    assert(y.size()     == 20);
-    assert(y.capacity() == 20);
-    assert(x == y);
-    }}
-
-int main () {
-    using namespace std;
-    cout << "Vector4.c++" << endl;
-
-    vectors<    vector<string> >("abc", "def", "ghi");
-    vectors< my_vector<string> >("abc", "def", "ghi");
-
-    cout << "Done." << endl;
-    return 0;}
+    ASSERT_EQ(y.size(),     20);
+    ASSERT_EQ(y.capacity(), 20);
+    ASSERT_EQ(x, y);}
