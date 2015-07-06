@@ -5,7 +5,11 @@ FILES :=      \
     Equal     \
     Fill      \
     Copy      \
-    Stack
+    Stack     \
+    Vector1   \
+    Vector2   \
+    Vector3   \
+    Vector4
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++
