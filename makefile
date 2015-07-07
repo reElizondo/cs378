@@ -103,7 +103,7 @@ pull:
     ../../../projects/c++/integer/ integer
 	@rsync -r -t -u -v --delete             \
     --include "Deque.h"                     \
-    --include "RunDeque.c++"                \
+    --include "TestDeque.c++"               \
     --exclude "*"                           \
     ../../../projects/c++/deque/ deque
 

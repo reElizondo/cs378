@@ -5,7 +5,6 @@
 // http://www.cplusplus.com/reference/vector/vector/
 
 #include <algorithm> // count
-#include <iostream>  // cout, endl
 #include <stdexcept> // out_of_range
 #include <vector>    // vector
 
@@ -37,7 +36,6 @@ TYPED_TEST(Vector_Fixture, test_1) {
     ASSERT_TRUE(x.empty());
     ASSERT_EQ(x.size(),     0);
     ASSERT_EQ(x.capacity(), 0);}
-
 
 TYPED_TEST(Vector_Fixture, test_2) {
     typedef typename TestFixture::vector_type vector_type;
