@@ -101,6 +101,11 @@ pull:
     --include "RunInteger.c++"              \
     --exclude "*"                           \
     ../../../projects/c++/integer/ integer
+	@rsync -r -t -u -v --delete             \
+    --include "Deque.h"                     \
+    --include "RunDeque.c++"                \
+    --exclude "*"                           \
+    ../../../projects/c++/deque/ deque
 
 push:
 	make clean
