@@ -21,7 +21,7 @@ int main () {
     using namespace std;
     cout << "RunInteger.c++" << endl << endl;
 
-    // less than 300 ms
+    // less than 500 ms
     cout << "*** 20th Mersenne prime: 1,332 digits ***" << endl << endl;
 
     {

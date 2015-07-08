@@ -344,8 +344,7 @@ class Integer {
          */
         explicit Integer (const std::string& value) {
             // <your code>
-            if (!valid())
-                throw std::invalid_argument("Integer::Integer()");}
+            }
 
         // Default copy, destructor, and copy assignment.
         // Integer (const Integer&);
