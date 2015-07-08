@@ -37,19 +37,20 @@ clean:
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-	rm -f RunInteger
+	rm -f TestDeque
+	rm -f TestDeque.out
 
 sync:
 	make clean
 	@echo `pwd`
 	@rsync -r -t -u -v --delete \
-    --include "Integer.h"       \
+    --include "Deque.h"         \
     --include "makefile"        \
-    --include "RunInteger.c++"  \
+    --include "TestDeque.c++"   \
     --exclude "*"               \
-    . downing@$(CS):cs/cs378/github/c++/integer/
+    . downing@$(CS):cs/cs378/github/c++/deque/
 
-test: RunInteger.out
+test: TestDeque.out
 
 versions:
 	uname -a
@@ -78,9 +79,11 @@ endif
 	@echo
 	doxygen --version
 
-RunInteger: Integer.h RunInteger.c++
-	$(CXX) $(CXXFLAGS) RunInteger.c++ -o RunInteger
+TestDeque: Deque.h TestDeque.c++
+	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) TestDeque.c++ -o TestDeque $(LDFLAGS)
 
-RunInteger.out: RunInteger
-	./RunInteger > RunInteger.out
-	cat RunInteger.out
+TestDeque.out: TestDeque
+	$(VALGRIND) ./TestDeque  >  TestDeque.out 2>&1
+	$(GCOV) -b Deque.h       >> TestDeque.out
+	$(GCOV) -b TestDeque.c++ >> TestDeque.out
+	cat TestDeque.out

@@ -8,6 +8,8 @@ clean:
 	cd collatz; make --no-print-directory clean
 	@echo
 	cd integer; make --no-print-directory clean
+	@echo
+	cd deque; make --no-print-directory clean
 
 config:
 	git config -l
@@ -117,6 +119,7 @@ push:
 	git add quizzes
 	git add collatz
 	git add integer
+	git add deque
 	git commit -m "another commit"
 	git push
 	git status
@@ -129,6 +132,7 @@ status:
 	git add quizzes
 	git add collatz
 	git add integer
+	git add deque
 	git branch
 	git remote -v
 	git status
@@ -149,6 +153,8 @@ sync:
 	cd collatz; make sync
 	@echo
 	cd integer; make sync
+	@echo
+	cd deque; make sync
 
 test:
 	cd examples; ls -al; ls -al; make --no-print-directory test
@@ -160,6 +166,8 @@ test:
 	cd collatz; ls -al; ls -al; make --no-print-directory test
 	@echo
 	cd integer; ls -al; ls -al; make --no-print-directory test
+	@echo
+	cd deque; ls -al; ls -al; make --no-print-directory test
 
 versions:
 	uname -a
@@ -175,3 +183,5 @@ versions:
 	cd collatz; make --no-print-directory versions
 	@echo
 	cd integer; make --no-print-directory versions
+	@echo
+	cd deque; make --no-print-directory versions
