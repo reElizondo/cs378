@@ -108,7 +108,7 @@ class my_vector {
             assert(valid());}
 
         ~my_vector () {
-            if (_b) {
+            if (!empty()) {
                 clear();
                 _a.deallocate(_b, capacity());}
             assert(valid());}
