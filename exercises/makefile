@@ -63,7 +63,8 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 %.c++y: %.appx %.appy
 	echo
 	$(VALGRIND) ./$<
-	$(GCOV) -b $(<:.appx=.c++) > $(<:.appx=.appx.gcov) 2>&1
+	-$(GCOV) -b $(<:.appx=.h) | grep -A 5 "File './$(<:.app=.h)'"
+	$(GCOV) -b $(<:.appx=.c++) | grep -A 5 "File './$(<:.app=.c++)'"
 ifdef GPROF
 	./$(<:.appx=.appy)
 	$(GPROF) $(<:.appx=.appy) > $(<:.appx=.appy.gprof) 2>&1
