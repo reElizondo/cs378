@@ -54,7 +54,7 @@ CXXFLAGS := -pedantic -std=c++11 -Wall
 	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
 
 %.appy: %.c++
-	$(CXX) -pg $(CXXFLAGS) $< -o $@ $(LDFLAGS)
+	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) $< -o $@ $(LDFLAGS) -pg
 
 %.c++x: %.appx %.appy
 	echo

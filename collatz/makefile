@@ -36,14 +36,11 @@ endif
 CXXFLAGS := -pedantic -std=c++11 -Wall
 
 clean:
+	rm -f *.appx
+	rm -f *.appy
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-	rm -f *.gprof
-	rm -f RunCollatz
-	rm -f RunCollatz.out
-	rm -f TestCollatz
-	rm -f TestCollatz.out
 
 sync:
 	make clean
@@ -62,7 +59,7 @@ sync:
     --exclude "*"                      \
     . downing@$(CS):cs/cs378/github/c++/collatz/
 
-test: RunCollatz.out TestCollatz.out
+test: RunCollatz.c++x TestCollatz.c++x
 
 versions:
 	which $(CXX)
@@ -93,19 +90,23 @@ endif
 	@echo
 	doxygen --version
 
-RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
+RunCollatz.appx: Collatz.h Collatz.c++ RunCollatz.c++
 	$(CXX) $(CXXFLAGS) Collatz.c++ RunCollatz.c++ -o RunCollatz
 
-RunCollatz.out: RunCollatz
-	cat RunCollatz.in
-	./RunCollatz < RunCollatz.in > RunCollatz.out
-	cat RunCollatz.out
+RunCollatz.c++x: RunCollatz.appx
+	./RunCollatz < RunCollatz.in
 
-TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
-	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
+TestCollatz.appx: Collatz.h Collatz.c++ TestCollatz.c++
+	$(CXX) $(GCOVFLAGS) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz.appx $(LDFLAGS)
 
-TestCollatz.out: TestCollatz
-	$(VALGRIND) ./TestCollatz  >  TestCollatz.out 2>&1
-	$(GCOV) -b Collatz.c++     >> TestCollatz.out
-	$(GCOV) -b TestCollatz.c++ >> TestCollatz.out
-	cat TestCollatz.out
+TestCollatz.appy: Collatz.h Collatz.c++ TestCollatz.c++
+	$(CXX) $(CXXFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz.appy $(LDFLAGS) -pg
+
+TestCollatz.c++x: TestCollatz.appx TestCollatz.appy
+	$(VALGRIND) ./TestCollatz.appx
+	$(GCOV) -b Collatz.c++     | grep -A 5 "File 'Collatz.c++'"
+	$(GCOV) -b TestCollatz.c++ | grep -A 5 "File 'TestCollatz.c++'"
+ifdef GPROF
+	./TestCollatz.appy
+	$(GPROF) TestCollatz.appy
+endif
