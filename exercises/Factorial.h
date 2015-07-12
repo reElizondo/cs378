@@ -2,8 +2,6 @@
 // Factorial.h
 // -----------
 
-// http://www.cplusplus.com/articles/D2N36Up4/
-
 #ifndef Factorial_h
 #define Factorial_h
 

@@ -2,8 +2,6 @@
 // Equal.h
 // -------
 
-// http://www.cplusplus.com/reference/algorithm/equal/
-
 #ifndef Equal_h
 #define Equal_h
 
