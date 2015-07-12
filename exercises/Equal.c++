@@ -5,9 +5,7 @@
 // http://www.cplusplus.com/reference/algorithm/equal/
 
 #include <algorithm>  // equal
-#include <cassert>    // assert
 #include <functional> // function
-#include <iostream>   // cout, endl
 #include <list>       // list
 #include <vector>     // vector
 
@@ -20,7 +18,7 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-using Equal_Array_Signature = std::function<bool (const int*, const int*, const int*)>;
+using Equal_Array_Signature = function<bool (const int*, const int*, const int*)>;
 
 struct Equal_Array_Fixture : TestWithParam<Equal_Array_Signature> {
     const int _a[3];
@@ -46,7 +44,7 @@ TEST_P(Equal_Array_Fixture, test_2) {
 
 
 
-typedef bool (*Equal_Vector_Signature) (vector<int>::const_iterator, vector<int>::const_iterator, vector<int>::const_iterator);
+using Equal_Vector_Signature = function<bool (vector<int>::const_iterator, vector<int>::const_iterator, vector<int>::const_iterator)>;
 
 struct Equal_Vector_Fixture : TestWithParam<Equal_Vector_Signature> {
     const vector<int> _x;
@@ -72,7 +70,7 @@ TEST_P(Equal_Vector_Fixture, test_2) {
 
 
 
-typedef bool (*Equal_List_Signature) (list<int>::const_iterator, list<int>::const_iterator, list<int>::const_iterator);
+using Equal_List_Signature = function<bool (list<int>::const_iterator, list<int>::const_iterator, list<int>::const_iterator)>;
 
 struct Equal_List_Fixture : TestWithParam<Equal_List_Signature> {
     const list<int> _x;

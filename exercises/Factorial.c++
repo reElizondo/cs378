@@ -16,11 +16,11 @@ using namespace std;
 using testing::TestWithParam;
 using testing::Values;
 
-using Factorial_Signature = std::function<int (int)>;
+using Factorial_Signature = function<int (int)>;
 
 struct Factorial_Fixture : TestWithParam<Factorial_Signature> {};
 
-INSTANTIATE_TEST_CASE_P (
+INSTANTIATE_TEST_CASE_P(
     Factorial_Instantiation,
     Factorial_Fixture,
     Values(
