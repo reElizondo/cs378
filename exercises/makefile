@@ -11,7 +11,8 @@ FILES :=      \
     Vector3   \
     Vector4   \
     Reverse   \
-    Count
+    Count     \
+    Pair
 
 ifeq ($(shell uname), Darwin)
     CXX       := g++

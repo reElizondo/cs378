@@ -78,6 +78,8 @@ pull:
     --include "Reverse.c++"                 \
     --include "Count.h"                     \
     --include "Count.c++"                   \
+    --include "Pair.h"                      \
+    --include "Pair.c++"                    \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
