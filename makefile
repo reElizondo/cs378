@@ -46,6 +46,8 @@ pull:
     --include "Lambdas.c++"                 \
     --include "Iterators.c++"               \
     --include "Consts.c++"                  \
+    --include "Sets.c++"                    \
+    --include "Maps.c++"                    \
     --exclude "*"                           \
     ../../../examples/c++/ examples
 	@rsync -r -t -u -v --delete             \
