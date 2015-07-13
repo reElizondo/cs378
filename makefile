@@ -76,6 +76,8 @@ pull:
     --include "Vector4.c++"                 \
     --include "Reverse.h"                   \
     --include "Reverse.c++"                 \
+    --include "Count.h"                     \
+    --include "Count.c++"                   \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
