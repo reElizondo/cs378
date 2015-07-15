@@ -35,6 +35,8 @@ endif
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 
+.PRECIOUS: %.appx %.appy
+
 clean:
 	rm -f *.appx
 	rm -f *.appy

@@ -5,7 +5,8 @@
 #ifndef Count_h
 #define Count_h
 
-#include <cstddef> // ptrdiff_t
+#include <cstddef>  // ptrdiff_t
+#include <iterator> // iterator, random_access_iterator_tag
 
 template <typename II, typename T>
 std::ptrdiff_t my_count_1 (II b, II e, const T& v) {

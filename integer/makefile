@@ -5,6 +5,7 @@ ifeq ($(shell uname), Darwin)
     GCOV      := gcov
     GCOVFLAGS := -fprofile-arcs -ftest-coverage
     GCOVVER   := -version | grep version
+    GPROF     :=
     BOOST     := /usr/local/src/boost_1_57_0/boost
     LDFLAGS   := -lgtest_main
     VALGRIND  :=
@@ -14,6 +15,8 @@ else ifeq ($(CXX), clang++)
     GCOV      := gcov-4.6
     GCOVFLAGS := --coverage
     GCOVVER   := -v | grep gcov
+    GPROF     := gprof
+    GPROFFLAGS :- -pg
     BOOST     := /usr/include/boost
     LDFLAGS   := -lgtest -lgtest_main -pthread
     VALGRIND  := valgrind
@@ -24,6 +27,7 @@ else
     GCOV      := gcov-4.8
     GCOVFLAGS := -fprofile-arcs -ftest-coverage
     GCOVVER   := -v | grep gcov
+    GPROF     := gprof
     BOOST     := /usr/include/boost
     LDFLAGS   := -lgtest -lgtest_main -pthread
     VALGRIND  := valgrind
@@ -31,13 +35,12 @@ endif
 
 CXXFLAGS := -pedantic -std=c++11 -Wall
 
-.PRECIOUS: %.app
-
 clean:
+	rm -f *.appx
+	rm -f *.appy
 	rm -f *.gcda
 	rm -f *.gcno
 	rm -f *.gcov
-	rm -f RunInteger
 
 sync:
 	make clean
@@ -49,17 +52,13 @@ sync:
     --exclude "*"               \
     . downing@$(CS):cs/cs378/github/c++/integer/
 
-test: RunInteger.out
+test: RunInteger.c++x
 
 versions:
-	uname -a
-	@echo
-	printenv
-	@echo
 	which $(CXX)
-	@echo hi
+	@echo
 	$(CXX) $(CXXVER)
-	@echo hi
+	@echo
 	$(GTESTVER)
 	@echo
 	which $(GCOV)
@@ -67,6 +66,12 @@ versions:
 	$(GCOV) $(GCOVVER)
 	@echo
 	grep "#define BOOST_VERSION " $(BOOST)/version.hpp
+ifdef GPROF
+	@echo
+	which $(GPROF)
+	@echo
+	$(GPROF) --version
+endif
 ifdef VALGRIND
 	@echo
 	which $(VALGRIND)
@@ -78,9 +83,8 @@ endif
 	@echo
 	doxygen --version
 
-RunInteger: Integer.h RunInteger.c++
+RunInteger.appx: Integer.h RunInteger.c++
 	$(CXX) $(CXXFLAGS) RunInteger.c++ -o RunInteger
 
-RunInteger.out: RunInteger
-	./RunInteger > RunInteger.out
-	cat RunInteger.out
+RunInteger.c++x: RunInteger.appx
+	./RunInteger

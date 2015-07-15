@@ -119,6 +119,11 @@ pull:
     --include "TestDeque.c++"               \
     --exclude "*"                           \
     ../../../projects/c++/deque/ deque
+	@rsync -r -t -u -v --delete             \
+    --include "Graph.h"                     \
+    --include "TestGraph.c++"               \
+    --exclude "*"                           \
+    ../../../projects/c++/graph/ graph
 
 push:
 	make clean
