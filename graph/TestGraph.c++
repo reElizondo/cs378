@@ -108,7 +108,7 @@ TYPED_TEST(TestGraph, test_edge) {
     vertex_descriptor vd2 = target(edAB, g);
     ASSERT_EQ(vdB, vd2);}
 
-TYPED_TEST(TestGraph, Vertices) {
+TYPED_TEST(TestGraph, test_vertices) {
     typedef typename TestFixture::graph_type         graph_type;
     typedef typename TestFixture::vertex_descriptor  vertex_descriptor;
     typedef typename TestFixture::edge_descriptor    edge_descriptor;
