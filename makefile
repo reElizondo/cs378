@@ -136,6 +136,7 @@ push:
 	git add collatz
 	git add integer
 	git add deque
+	git add graph
 	git commit -m "another commit"
 	git push
 	git status
@@ -143,12 +144,6 @@ push:
 status:
 	make clean
 	@echo
-	git add examples
-	git add exercises
-	git add quizzes
-	git add collatz
-	git add integer
-	git add deque
 	git branch
 	git remote -v
 	git status
