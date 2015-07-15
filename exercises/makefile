@@ -1,18 +1,19 @@
-FILES :=      \
-    IsPrime1  \
-    IsPrime2  \
-    Factorial \
-    Equal     \
-    Fill      \
-    Copy      \
-    Stack     \
-    Vector1   \
-    Vector2   \
-    Vector3   \
-    Vector4   \
-    Reverse   \
-    Count     \
-    Pair
+FILES :=         \
+    IsPrime1     \
+    IsPrime2     \
+    Factorial    \
+    Equal        \
+    Fill         \
+    Copy         \
+    Stack        \
+    Vector1      \
+    Vector2      \
+    Vector3      \
+    Vector4      \
+    Reverse      \
+    Count        \
+    Pair         \
+    BackInserter
 
 ifeq ($(shell uname), Darwin)
     CXX        := g++

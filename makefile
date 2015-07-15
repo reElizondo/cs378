@@ -82,6 +82,8 @@ pull:
     --include "Count.c++"                   \
     --include "Pair.h"                      \
     --include "Pair.c++"                    \
+    --include "BackInserter.h"              \
+    --include "BackInserter.c++"            \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \
