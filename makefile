@@ -84,6 +84,9 @@ pull:
     --include "Pair.c++"                    \
     --include "BackInserter.h"              \
     --include "BackInserter.c++"            \
+    --include "OStreamIterator.c++"         \
+    --include "IStreamIterator.c++"         \
+    --include "ReverseIterator.c++"         \
     --exclude "*"                           \
     ../../../exercises/c++/ exercises
 	@rsync -r -t -u -v --delete             \

@@ -5,6 +5,7 @@
 // http://www.cplusplus.com/reference/iterator/back_inserter/
 
 #include <iterator> // back_insert_iterator
+#include <vector>   // vector
 
 #include "gtest/gtest.h"
 

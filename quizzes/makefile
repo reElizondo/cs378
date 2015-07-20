@@ -1,11 +1,12 @@
-FILES :=  \
-    Quiz3 \
-    Quiz5 \
-    Quiz6 \
-    Quiz7 \
-    Quiz8 \
-    Quiz9 \
-    Quiz11
+FILES :=   \
+    Quiz3  \
+    Quiz5  \
+    Quiz6  \
+    Quiz7  \
+    Quiz8  \
+    Quiz9  \
+    Quiz11 \
+    Quiz14
 
 ifeq ($(shell uname), Darwin)
     CXX        := g++
